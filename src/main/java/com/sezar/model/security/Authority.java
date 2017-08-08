@@ -20,7 +20,12 @@ public class Authority {
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
-    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
+//    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "USER_AUTHORITY",
+//            joinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")},
+//            inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")})
     private List<User> users;
 
     public Long getId() {

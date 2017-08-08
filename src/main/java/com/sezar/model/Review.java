@@ -22,7 +22,6 @@ public class Review implements Serializable {
     private String reviewText;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @ManyToOne
     @JoinColumn(name = "rating_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Rating rating;

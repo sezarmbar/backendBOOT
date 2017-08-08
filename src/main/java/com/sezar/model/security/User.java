@@ -53,12 +53,10 @@ public class User {
 //    @NotNull
     private Date lastPasswordResetDate;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "USER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
-    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
+
+//    @JsonIgnore
     private List<Authority> authorities;
 
     public Long getId() {
