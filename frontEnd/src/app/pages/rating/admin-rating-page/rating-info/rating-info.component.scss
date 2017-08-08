@@ -1,0 +1,67 @@
+/* Structure */
+
+.review-table-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  background: white;
+  width: 100%;
+}
+
+#inner {
+  display: table;
+  margin: 0 auto;
+}
+
+.review-table-header {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  font-size: 20px;
+}
+
+.mat-table {
+  overflow: auto;
+}
+
+.app-rating-chart-div {
+  display: block;
+  margin: auto;
+}
+
+.row-highlight-odd {
+  background: #fff4e0;
+}
+
+.rating-data{
+  width: 100%;
+ text-align: center;
+}
+th, td {
+    // border-bottom: 1px solid #ddd;
+}
+img.Image { max-width: 25px;}
+ .md-contener-info{
+   margin: 10px 10px 10px 10px;
+ }
+@media screen and (max-width: 599px) {
+
+  .content {
+    /* https://github.com/angular/flex-layout/issues/295 */
+    display: block !important;
+  }
+}
+.full-width {
+  width: 100%;
+}
+md-card {
+  // max-width: 850px;
+  min-width: 300px;
+  text-align: center;
+  animation: fadein 1s;
+  -o-animation: fadein 1s; /* Opera */
+  -moz-animation: fadein 1s; /* Firefox */
+  -webkit-animation: fadein 1s; /* Safari and Chrome */
+
+}

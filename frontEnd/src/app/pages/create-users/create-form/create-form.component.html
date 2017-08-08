@@ -1,0 +1,77 @@
+<div class="content" fxLayout="row" fxLayoutAlign="center">
+
+  <md-card>
+
+    <md-card-title>
+      <h2>Benutzer erstellen</h2>
+    </md-card-title>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" #createUserForm="ngForm">
+      <table class="full-width" cellspacing="0">
+        <tr>
+          <td>
+            <md-input-container class="full-width">
+              <input mdInput formControlName="firstname" placeholder="Vor Name">
+            </md-input-container>
+          </td>
+          <td>
+            <md-input-container class="full-width">
+              <input mdInput formControlName="lastname" placeholder="Nach Name">
+            </md-input-container>
+          </td>
+          <td class="width-15">
+          </td>
+        </tr>
+      </table>
+      <p>
+        <table class="full-width" cellspacing="0">
+          <tr>
+            <td>
+              <md-input-container class="full-width">
+                <input mdInput formControlName="username" placeholder="Benutzer">
+              </md-input-container>
+            </td>
+            <td>
+              <md-input-container class="full-width">
+                <input mdInput formControlName="password" placeholder="Passwort" [type]="showPassword.checked ? 'text' : 'password'">
+              </md-input-container>
+            </td>
+            <td class="width-15">
+              <md-checkbox #showPassword></md-checkbox>
+            </td>
+          </tr>
+        </table>
+        <p>
+          <table class="full-width" cellspacing="0">
+            <tr>
+              <td>
+                <md-input-container class="full-width">
+                  <input mdInput formControlName="email" placeholder="Email">
+                </md-input-container>
+              </td>
+            </tr>
+          </table>
+          <p>
+            <table class="full-width" cellspacing="0">
+              <tr>
+                <td class="width-50">
+                  <div *ngIf="Active.checked">Aktiv</div>
+                  <div *ngIf="!Active.checked">Deaktiviert</div>
+                  <p>
+                    <md-slide-toggle formControlName="active" #Active>
+
+                    </md-slide-toggle>
+                </td>
+                <td class="width-50">
+                  <div *ngIf="Admin.checked">Admin</div>
+                  <div *ngIf="!Admin.checked">User</div>
+                  <p>
+                    <md-slide-toggle formControlName="admin" #Admin></md-slide-toggle>
+                </td>
+              </tr>
+            </table>
+            <p>
+              <button class="full-width" type="submit" [disabled]="!createUserForm.form.valid" md-raised-button color="primary">erstellen</button>
+    </form>
+  </md-card>
+</div>

@@ -1,0 +1,51 @@
+.create-user-sidenav-fab-container {
+  width: 100%;
+  // height: calc(100vh);
+  height: calc(100vh - 64px);
+}
+
+.create-user-sidenav-fab-container md-sidenav {
+  width: 300px;
+}
+.button-rating{
+  width: 300px;
+}
+.create-user-sidenav-fab-container .mat-sidenav-content,
+.create-user-sidenav-fab-container md-sidenav {
+  display: flex;
+  overflow: visible;
+}
+
+.create-user-scrolling-side-content {
+  overflow: auto;
+  width: 300px;
+}
+.verfolgung{
+  margin: 12px  12px  13px  5% ;
+}
+.create-user-scrolling-content {
+  padding-top: 15px;
+}
+
+.create-user-fab {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.create-user-fab-close  {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+
+.toolbar-create-user {
+//   padding-left: 15%;
+  margin: auto;
+}
+
+.ceate-button { padding-left: 20%;}
+
+.create-user-content-title {
+  height: 30px;
+}

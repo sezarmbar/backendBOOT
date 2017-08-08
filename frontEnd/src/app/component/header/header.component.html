@@ -1,0 +1,21 @@
+<md-toolbar color="primary" class="app-navbar">
+  <button md-button md-ripple routerLink="/">
+   <span>Bewertung Application</span>
+  </button>
+
+  <div class="right">
+    <button  routerLink="/creatUsers" md-button md-ripple>
+      <span> Benutzer erstellen</span>
+    </button>
+    <button *ngIf="!hasSignedIn()" routerLink="/login" md-button md-ripple>
+      <span>Login</span>
+    </button>
+    <button class="greeting-button"  routerLink="/admin"*ngIf="hasSignedIn()" md-button md-ripple>
+      <span>{{userName()}}</span>
+    </button>
+    <button *ngIf="hasSignedIn()" (click)="logout()" md-button md-ripple>
+      <span>Logout</span>
+    </button>
+  </div>
+</md-toolbar>
+

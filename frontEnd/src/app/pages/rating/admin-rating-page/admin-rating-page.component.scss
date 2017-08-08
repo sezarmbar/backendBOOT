@@ -1,0 +1,50 @@
+.admin-sidenav-fab-container {
+  width: 100%;
+  // height: calc(100vh);
+  height: calc(100vh - 64px);
+}
+
+.admin-sidenav-fab-container md-sidenav {
+  width: 300px;
+}
+.button-rating{
+  width: 300px;
+}
+.admin-sidenav-fab-container .mat-sidenav-content,
+.admin-sidenav-fab-container md-sidenav {
+  display: flex;
+  overflow: visible;
+}
+
+.admin-scrolling-side-content {
+  overflow: auto;
+  width: 300px;
+}
+.verfolgung{
+  margin: 12px  12px  13px  5% ;
+}
+.admin-scrolling-content {
+  padding-top: 15px;
+}
+
+.admin-fab {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.admin-fab-close  {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+
+.toolbarAdmin {
+  padding-left: 30%;
+}
+
+.ceate-button { padding-left: 20%;}
+
+.admin-content-title {
+  height: 30px;
+}

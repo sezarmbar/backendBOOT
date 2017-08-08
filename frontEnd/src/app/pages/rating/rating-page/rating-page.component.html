@@ -1,0 +1,38 @@
+<!-- <div *ngIf="statusCode; else processing">
+   <div *ngIf="statusCode === 201" [ngClass] = "'success'">
+	    Article added successfully.
+   </div>   
+   <div *ngIf="statusCode === 409" [ngClass] = "'success'">
+        Article already exists.
+   </div>   	
+   <div *ngIf="statusCode === 200" [ngClass] = "'success'">
+        Article updated successfully.
+   </div>   	      
+   <div *ngIf="statusCode === 204" [ngClass] = "'success'">
+        Article deleted successfully.
+   </div>   	   
+   <div *ngIf="statusCode === 500" [ngClass] = "'error'">
+        Internal Server Error.
+   </div>   	
+ </div> -->
+
+<!-- <h1>{{rating.nameOfRat}}</h1> -->
+
+<div class="rating-page-main" *ngIf="isRatinActiveded">
+  <div>
+    <div *ngIf="isLoaded" class="title"> {{title}}</div>
+    <table class="emoghTable">
+      <tr>
+        <td ><img (click)="updateRating($event)" (click)="openDialog()" id="veryBad" src="./assets/img/veryBad.png" alt="" /></td>
+        <td ><img (click)="updateRating($event)" (click)="openDialog()" id="bad"src="./assets/img/bad.png" alt="" /></td>
+        <td ><img (click)="updateRating($event)" id="normal" src="./assets/img/normal.png" alt="" /></td>
+        <td ><img (click)="updateRating($event)" id="god" src="./assets/img/god.png" alt="" /></td>
+        <td ><img (click)="updateRating($event)" id="veryGod" src="./assets/img/veryGod2.png" alt="" /></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="!isRatinActiveded">
+  <h1>Sie mussen Bewertung akitvieren </h1>
+</div>

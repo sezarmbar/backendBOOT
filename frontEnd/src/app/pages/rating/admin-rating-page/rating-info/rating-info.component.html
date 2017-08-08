@@ -1,0 +1,84 @@
+<div class="content" fxLayout="row" fxLayoutAlign="center none">
+  <md-card>
+    <p></p>
+    <md-card-title><h2> {{rating.nameOfRat}}</h2> </md-card-title>
+    <p></p>
+    <md-card-subtitle>Hergestellt in: &nbsp;{{createdAt}}</md-card-subtitle>
+    
+    <md-card-subtitle>Beschreibung: &nbsp;{{rating.description}}</md-card-subtitle>
+
+    <p></p>
+    <table class="full-width" cellspacing="0">
+      <tr>
+        <td>
+          <md-input-container>
+            <input mdInput (ngModel)="waitingTime" (change)="waitingTimeOnChange(inputWaitingTime.value)" #inputWaitingTime placeholder="Warten zeit" value="{{rating.waitingTime}}">
+          </md-input-container>
+        </td>
+        <td style="width:50%">
+          <div *ngIf="active.checked">Aktiv</div>
+          <div *ngIf="!active.checked">Deaktiviert</div>
+          <md-slide-toggle #active name="active" [(ngModel)]="checked" (change)="outRatingStatus(active.checked)">
+          </md-slide-toggle>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button  class="full-width" color="primary" [disabled]="!checked" md-raised-button routerLink="/r/{{rating.nameOfRat}}">Bewertungen Seite</button>
+        </td>
+      </tr>
+      <p></p>
+      
+      <p></p>
+    </table>
+    <table class="full-width">
+      <tr>
+        <td><button class="full-width" color="accent"  [disabled]="checked" md-raised-button (click)="deletRating()">Löschen</button></td>
+        <td><button class="full-width" color="primary" [disabled]="EnablePdfButton" md-raised-button (click)="ceatePDF()">export PDF</button></td>
+      </tr>
+    </table>
+  </md-card>
+
+  <md-card>
+    <table class="full-width">
+      <tr>
+        <td><img src="./assets/img/veryBad.png" class="Image" /></td>
+        <td><img src="./assets/img/bad.png" class="Image" /></td>
+        <td><img src="./assets/img/normal.png" class="Image" /></td>
+        <td><img src="./assets/img/god.png" class="Image" /></td>
+        <td colspan="2"><img src="./assets/img/veryGod.png" class="Image" /></td>
+      </tr>
+      <tr>
+        <td>{{rating.veryBad}}</td>
+        <td>{{rating.bad}}</td>
+        <td>{{rating.normal}}</td>
+        <td>{{rating.god}}</td>
+        <td colspan="2">{{rating.veryGod}}</td>
+      </tr>
+    </table>
+    <div class="app-rating-chart-div" id="inner">
+      <app-rating-chart #chartContainer id="chartContainer" [chartDate]="chartDate"></app-rating-chart>
+    </div>
+
+  </md-card>
+</div>
+<p></p>
+<md-card>
+  <div class="review-table-container mat-elevation-z8">
+    <md-table #table [dataSource]="dataSource">
+      <ng-container cdkColumnDef="userName">
+        <md-header-cell *cdkHeaderCellDef> Bewertungen </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+      </ng-container>
+      <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+      <md-row *cdkRowDef="let row; columns: displayedColumns;
+    let first = first; let last = last; let even = even; let odd = odd" [ngClass]="{
+               'row-highlight-first': highlights.has('first') && first,
+               'row-highlight-last': highlights.has('last') && last,
+               'row-highlight-even': highlights.has('even') && even,
+               'row-highlight-odd': highlights.has('odd') && odd
+             }">
+      </md-row>
+    </md-table>
+  </div>
+</md-card>

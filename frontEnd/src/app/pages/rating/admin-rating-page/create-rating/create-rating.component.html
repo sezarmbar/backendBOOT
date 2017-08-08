@@ -1,0 +1,44 @@
+<div class="content" fxLayout="row" fxLayoutAlign="center">
+
+  <md-card elevation="5" fxFlex>
+
+    <md-card-title>
+      <h2>Bewertung</h2>
+    </md-card-title>
+    <md-card-subtitle>
+      <h2>Bewertung erstellen</h2>
+    </md-card-subtitle>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" #createRating="ngForm">
+      <table class="full-width" cellspacing="0">
+        <tr>
+          <td>
+            <div style="color:red" *ngIf="nameError">insert another name</div>
+            <md-input-container class="full-width">
+              <input mdInput formControlName="ratingName" required placeholder="Bewertung Name" required>
+            </md-input-container>
+          </td>
+          <td>
+            <md-input-container class="full-width">
+              <input mdInput formControlName="waitingTime" type="number" required placeholder="Warten zeit">
+            </md-input-container>
+          </td>
+        </tr>
+      </table>
+      <p>
+        <md-input-container class="full-width">
+          <input mdInput formControlName="description" placeholder="Info über Bewertung">
+        </md-input-container>
+      </p>
+      <p>
+        <section class="active-section">
+          <md-slide-toggle mdInput #active formControlName="active">
+            <div *ngIf="active.checked">Aktiv</div>
+            <div *ngIf="!active.checked">Deaktiviert</div>
+          </md-slide-toggle>
+        </section>
+        <p>
+          <button class="full-width" type="submit" [disabled]="!createRating.form.valid" md-raised-button color="primary">erstellen</button>
+    </form>
+  </md-card>
+</div>

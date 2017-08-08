@@ -1,0 +1,42 @@
+<md-sidenav-container class="admin-sidenav-fab-container">
+  <md-sidenav #sidenav mode="side" opened="true">
+
+    <div class="admin-scrolling-side-content">
+
+      <md-toolbar>
+        <span class="toolbarAdmin">Bewertungen</span>
+        <button md-mini-fab color="primary" *ngIf="sidenav.opened" class="admin-fab-close" (click)="sidenav.toggle()">
+          <md-icon>close</md-icon>
+        </button>
+      </md-toolbar>
+      <md-list>
+        <md-list-item>
+          <div class="ceate-button">
+            <button md-raised-button color="accent" (click)="formOpen()" color="primary">
+              Bewertung erstellen
+            </button>
+          </div>
+        </md-list-item>
+        <md-list-item *ngFor="let rating of allRating">
+          <a md-button class="button-rating" (click)="getRating(rating.id)">{{rating.nameOfRat}}</a>
+        </md-list-item>
+      </md-list>
+    </div>
+
+
+  </md-sidenav>
+  <button md-mini-fab color="primary" *ngIf="!sidenav.opened" class="admin-fab" (click)="sidenav.toggle()">
+    <md-icon>menu</md-icon>
+  </button>
+  <div class="admin-scrolling-content">
+    <!-- <div class="admin-content-title"></div> -->
+
+    <app-create-rating *ngIf="showCreateForm" (onCancle)="formClose()" [nameError]="nameError" (onDatePicked)="createRating($event)"></app-create-rating>
+
+    
+      <md-slide-toggle class="verfolgung" #observ id="observ" *ngIf="showRatingInfo" (change)="getAllReviewsObservable($event)">Verfolgung</md-slide-toggle>
+
+    <app-rating-info *ngIf="showRatingInfo" (updateRating)="updateRating($event)" (deletRatingId)="deletRating($event)"
+      [rating]="rating" [reviews]="allReviwsForRating" [chartDate]="chartDate"  #setReviewData></app-rating-info>
+  </div>
+</md-sidenav-container>
