@@ -41,14 +41,4 @@ export class UserService {
       return data;
     }, (error) => console.log(error));
   }
-  
-  // createUser(use) : Observable < number > {
-  //   let cpHeaders = new Headers({'Content-Type': 'application/json'});
-  //   let options = new RequestOptions({headers: cpHeaders});
-  //   return this
-  //     .http
-  //     .post(this.config.user_url, user, options)
-  //     .map(success => success.status)
-  //     .catch(this.handleError);
-  // }
 }

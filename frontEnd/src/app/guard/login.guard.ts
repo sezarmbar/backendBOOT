@@ -25,7 +25,6 @@ export class AdminPage implements CanActivate {
   constructor(private router: Router, private loginGuard: LoginGuard) { }
 
   canActivate(): boolean {
-      console.log(' true  this.loginGuard.active ' + this.loginGuard.active);
       return (!this.loginGuard.active);
   }
 

@@ -58,7 +58,7 @@ import {
   ApiService2,
   AuthService,
   UserService,
-  FooService,
+  
   ConfigService
 } from './service';
 import { LoginComponent } from './login';
@@ -94,7 +94,7 @@ import { CreateFormComponent } from './pages/create-users/create-form/create-for
     AuthService,
     AdminPage,
     UserService,
-    FooService,
+    
     ConfigService,
     {
       'provide': APP_INITIALIZER,
