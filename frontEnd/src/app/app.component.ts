@@ -1,5 +1,5 @@
 import { UserService } from './service/user.service';
-import { LoginGuard } from './guard/login.guard';
+import { LoginGuard } from './guard';
 
 import { Component, OnInit } from '@angular/core';
 

@@ -5,7 +5,7 @@ import { RatingPageComponent, AdminRatingPageComponent } from './pages/rating';
 
 import { ErrorPageComponent } from './pages/error-page';
 import { LoginComponent } from './login';
-import { LoginGuard, AdminPage } from './guard';
+import { LoginGuard, AdminPage,CreateUserPage } from './guard';
 import { CreateUsersComponent } from "./pages/create-users";
 
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
     { path: '404', component: ErrorPageComponent },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'admin', component: AdminRatingPageComponent, canActivate: [AdminPage] },
-    { path: 'creatUsers', component: CreateUsersComponent },
+    { path: 'creatUsers', component: CreateUsersComponent ,canActivate:[CreateUserPage]},
     
 
 ];

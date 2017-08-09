@@ -63,7 +63,7 @@ import {
 } from './service';
 import { LoginComponent } from './login';
 
-import { LoginGuard, AdminPage } from './guard';
+import { LoginGuard, AdminPage, CreateUserPage } from './guard';
 import { HomeComponent } from './home/home.component';
 export function initUserFactory(userService: UserService) {
     return () => userService.initUser();
@@ -90,7 +90,7 @@ import { CreateFormComponent } from './pages/create-users/create-form/create-for
     CreateFormComponent
   ],
   entryComponents: [RatingDeleteDialog, DialogReviewEnter],
-  providers: [RatingService,  ApiService2, LoginGuard,
+  providers: [RatingService,  ApiService2, LoginGuard,CreateUserPage,
     AuthService,
     AdminPage,
     UserService,

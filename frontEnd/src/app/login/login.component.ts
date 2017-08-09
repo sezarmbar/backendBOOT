@@ -1,4 +1,4 @@
-import { LoginGuard } from './../guard/login.guard';
+import { LoginGuard } from './../guard';
 import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -67,7 +67,7 @@ TOKEN_KEY = "jwtToken"
       .delay(1000)
       .subscribe(data => {
         localStorage.setItem(this.TOKEN_KEY, data.token);
-        this.userService.getMyInfo().subscribe();
+        this.userService.getMyInfo().subscribe(res => this.userService.currentUser = res); 
         this.loginGuard.active = false;
         this.router.navigate(['/admin']);
       },

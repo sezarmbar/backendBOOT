@@ -8,11 +8,13 @@ export class LoginGuard implements CanActivate {
   active= true;
   constructor(private router: Router, private userService: UserService) { }
   canActivate(): boolean {
+    
     if (this.userService.currentUser) {
+      
       this.router.navigate(['/']);
       this.active = false;
       return this.active;
-    } else {
+    } else {   
       this.active = true;
       return this.active;
     }
@@ -22,6 +24,17 @@ export class LoginGuard implements CanActivate {
 
 @Injectable()
 export class AdminPage implements CanActivate {
+  constructor(private router: Router, private loginGuard: LoginGuard, private userService: UserService) { }
+
+  canActivate(): boolean {
+    console.log(this.userService.currentUser)
+      return (!this.loginGuard.active);
+  }
+
+}
+
+@Injectable()
+export class CreateUserPage implements CanActivate {
   constructor(private router: Router, private loginGuard: LoginGuard) { }
 
   canActivate(): boolean {
