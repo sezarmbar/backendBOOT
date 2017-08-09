@@ -3,6 +3,7 @@ import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as jwtDecode from "jwt-decode";
 
 import {
   UserService,
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   title = 'Login';
 
   form: FormGroup;
-TOKEN_KEY = "jwtToken"
+  TOKEN_KEY = "jwtToken"
   /**
    * Boolean used in telling the UI
    * that the form has been submitted
@@ -61,13 +62,14 @@ TOKEN_KEY = "jwtToken"
      */
     this.submitted = true;
     this.errorDiagnostic = null;
-    
+
     this.authService.login(this.form.value)
       // show me the animation
       .delay(1000)
       .subscribe(data => {
         localStorage.setItem(this.TOKEN_KEY, data.token);
-        this.userService.getMyInfo().subscribe(res => this.userService.currentUser = res); 
+        this.getRoles(data.token);
+        this.userService.getMyInfo().subscribe(res => this.userService.currentUser = res);
         this.loginGuard.active = false;
         this.router.navigate(['/admin']);
       },
@@ -77,7 +79,34 @@ TOKEN_KEY = "jwtToken"
       });
 
   }
+  getRoles(token) {
+    const decodedTokenPayloadOld = jwtDecode<TokenDto>(token);
+    const roles = decodedTokenPayloadOld.roles;
+    
+    
+    function find_Admin_Role(role) {
+    return role.authority === 'ROLE_ADMIN';
+  }
+    
+    console.log(roles.find(
+      (role :any)=> {
+    return role.authority === 'ROLE_ADMIN';
+  }
+    ));
+  }
 
+  find_Admin_Role(role) {
+    return role.authority === 'ROLE_ADMIN';
+  }
 
 }
-// {"timestamp":1502215694803,"status":500,"error":"Internal Server Error","exception":"org.springframework.security.core.userdetails.UsernameNotFoundException","message":"No user found with username 'sezarmbar'.","path":"/registration"}
+
+interface TokenDto {
+  sub: string;
+  exp: number;
+  iat: number;
+  roles: Array<Authority>;
+}
+interface Authority {
+  authority: string;
+}
