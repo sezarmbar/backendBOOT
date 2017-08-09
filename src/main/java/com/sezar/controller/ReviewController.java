@@ -23,7 +23,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api")
-@CrossOrigin(origins = {"http://localhost:4200"})
 public class ReviewController {
 
     @Autowired
