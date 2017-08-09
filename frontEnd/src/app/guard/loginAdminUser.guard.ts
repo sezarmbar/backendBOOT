@@ -24,20 +24,23 @@ export class LoginGuard implements CanActivate {
 
 @Injectable()
 export class AdminPage implements CanActivate {
+  active= false;
+  isUser =false;
   constructor(private router: Router, private loginGuard: LoginGuard, private userService: UserService) { }
 
   canActivate(): boolean {
-      return (!this.loginGuard.active);
+      return this.active;
   }
 
 }
 
 @Injectable()
 export class CreateUserPage implements CanActivate {
+active= false;
   constructor(private router: Router, private loginGuard: LoginGuard) { }
 
   canActivate(): boolean {
-      return (!this.loginGuard.active);
+      return this.active;
   }
 
 }
