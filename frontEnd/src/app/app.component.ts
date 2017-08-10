@@ -12,18 +12,21 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     let token = localStorage.getItem(this.TOKEN_KEY);
-    this.setUserRollesUI(token);
-    if (this.userService.currentUser) {
-      this.loginGuard.active = false;
-    }
+    if(token != null)
+      this.setUserRollesUI(token);
+    // if (this.userService.currentUser) {
+    //   this.loginGuard.active = false;
+    // }
   }
 
    setUserRollesUI(token){
       if(this.getRoles(token)){
+        this.loginGuard.active = false;
         this.createUserPage.active=true;
         this.adminPage.isUser =false;           
         this.adminPage.active =true;
       }else{
+        this.loginGuard.active = false;
         this.adminPage.active =true;     
         this.adminPage.isUser =true;   
         this.createUserPage.active=false;        
@@ -35,7 +38,6 @@ export class AppComponent implements OnInit {
     const roles = decodedTokenPayloadOld.roles;
 
     const role= roles.find((role :any)=> {return role.authority === 'ROLE_ADMIN';});
-    console.log(role)
     if(role != undefined ){
       isAdmin = true;
     }

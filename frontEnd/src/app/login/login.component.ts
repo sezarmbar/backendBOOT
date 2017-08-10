@@ -1,4 +1,4 @@
-import { LoginGuard,AdminPage,CreateUserPage } from './../guard';
+import { LoginGuard, AdminPage, CreateUserPage } from './../guard';
 import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -43,8 +43,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private loginGuard: LoginGuard,
-    private createUserPage:CreateUserPage,
-    private adminPage:AdminPage
+    private createUserPage: CreateUserPage,
+    private adminPage: AdminPage
   ) {
 
   }
@@ -69,11 +69,10 @@ export class LoginComponent implements OnInit {
       // show me the animation
       .delay(1000)
       .subscribe(data => {
+        this.router.navigate(['/home']);
         localStorage.setItem(this.TOKEN_KEY, data.token);
         this.setUserRollesUI(data.token);
         this.userService.getMyInfo().subscribe();
-        this.loginGuard.active = false;
-        this.router.navigate(['/']);
       },
       error => {
         this.submitted = false;
@@ -81,25 +80,28 @@ export class LoginComponent implements OnInit {
       });
 
   }
-   setUserRollesUI(token){
-      if(this.getRoles(token)){
-        this.createUserPage.active=true;
-        this.adminPage.isUser =false;           
-        this.adminPage.active =true;
-      }else{
-        this.adminPage.active =true;     
-        this.adminPage.isUser =true;   
-        this.createUserPage.active=false;        
+  setUserRollesUI(token) {
+    if (token != null) {
+      if (this.getRoles(token)) {
+        this.createUserPage.active = true;
+        this.adminPage.isUser = false;
+        this.adminPage.active = true;
+        this.loginGuard.active = false;
+      } else {
+        this.adminPage.active = true;
+        this.adminPage.isUser = true;
+        this.createUserPage.active = false;
+        this.loginGuard.active = false;
       }
     }
-  getRoles(token):boolean {
+  }
+  getRoles(token): boolean {
     let isAdmin = false;
     const decodedTokenPayloadOld = jwtDecode<TokenDto>(token);
     const roles = decodedTokenPayloadOld.roles;
 
-    const role= roles.find((role :any)=> {return role.authority === 'ROLE_ADMIN';});
-    console.log(role)
-    if(role != undefined ){
+    const role = roles.find((role: any) => { return role.authority === 'ROLE_ADMIN'; });
+    if (role != undefined) {
       isAdmin = true;
     }
     return isAdmin;
