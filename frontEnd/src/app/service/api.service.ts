@@ -8,7 +8,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class ApiService2 {
 
-  csrfToken: string;
+  tokenName='jwtToken';
   headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
   cpHeaders = new Headers({ 'Content-Type': 'application/json' });
   options = new RequestOptions({ headers: this.cpHeaders });
@@ -18,7 +18,7 @@ export class ApiService2 {
   }
 
   anonGet(path: string): Observable<any> {
-    const jtoken = localStorage.getItem("jwtToken")
+    const jtoken = localStorage.getItem(this.tokenName)
     const cpHeaders = new Headers({ 'Content-Type': 'application/json', "Authorization": jtoken });
     return this.http.get(
       path,
@@ -53,13 +53,13 @@ export class ApiService2 {
   }
   // --------------
   getOptions() {
-    const jtoken = localStorage.getItem("jwtToken")
+    const jtoken = localStorage.getItem(this.tokenName)
     const cpHeaders = new Headers({ 'Content-Type': 'application/json', "Authorization": jtoken });
     const options = new RequestOptions({ headers: cpHeaders });
     return options;
   }
     getcpHeaders() {
-    const jtoken = localStorage.getItem("jwtToken")
+    const jtoken = localStorage.getItem(this.tokenName)
     const cpHeaders = new Headers({ 'Content-Type': 'application/json', "Authorization": jtoken });
     return cpHeaders;
   }
