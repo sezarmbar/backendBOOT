@@ -7,6 +7,7 @@ import {ConfigService} from './config.service';
 export class UserService {
 
   currentUser;
+  tokenName='jwtToken';
 
   constructor(private apiService : ApiService2, private config : ConfigService,
     // private loginGuard : LoginGuard,
@@ -15,6 +16,8 @@ export class UserService {
     ) {}
 
   initUser() {
+    const token = localStorage.getItem(this.tokenName)
+    if(token!=null){
     const promise = this
       .apiService
       .anonGet(this.config.refresh_token_url)
@@ -31,6 +34,7 @@ export class UserService {
       })
       .catch(() => null);
     return promise;
+    }
   }
 
   getMyInfo() {
