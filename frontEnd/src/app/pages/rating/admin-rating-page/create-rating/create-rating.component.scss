@@ -21,7 +21,12 @@ md-card {
   left: 15px;
   // top: 10px;
 }
-
+.has-danger{
+  color: red;
+}
+.has-success{
+  color: green;
+}
 .active-section {
   display: flex;
   align-content: center;

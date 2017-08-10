@@ -2,7 +2,7 @@
   <button md-mini-fab color="primary" routerLink="/admin" class="admin-fab">
     <md-icon>navigate_before</md-icon>
   </button>
-  <div fxLayout="row" fxLayoutAlign="center">
+  <div  fxLayout="row" fxLayoutAlign="center">
     <md-card elevation="5" fxFlex>
 
       <md-card-title>
@@ -12,7 +12,7 @@
         <h2>Bewertung erstellen</h2>
       </md-card-subtitle>
 
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" #createRating="ngForm">
+      <form *ngIf="showForm" [formGroup]="form" (ngSubmit)="onSubmit()" #createRating="ngForm">
         <table class="full-width" cellspacing="0">
           <tr>
             <td>
@@ -22,8 +22,8 @@
               </md-input-container>
             </td>
             <td>
-              <md-input-container class="full-width">
-                <input mdInput formControlName="waitingTime" type="number" required placeholder="Warten zeit">
+              <md-input-container fullWidth='true' >
+                <input  mdInput formControlName="waitingTime" type="number" required placeholder="Warten zeit">
               </md-input-container>
             </td>
           </tr>
