@@ -32,6 +32,7 @@ export class CreateRatingComponent implements OnInit {
     const creatRD = this.form.value;
     this.rating = new Rating(null, creatRD.ratingName, creatRD.description, 0, 0, 0, 0, 0, null, creatRD.active, creatRD.waitingTime);
     this.createRating(this.rating);
+    this.form.reset();
   }
 
   createRating(rating: Rating) {

@@ -29,13 +29,6 @@
     <md-icon>menu</md-icon>
   </button>
   <div class="admin-scrolling-content">
-    <!-- <div class="admin-content-title"></div> -->
-
-    <!-- <app-create-rating *ngIf="!showRatingInfo" (onCancle)="formClose()" [nameError]="nameError" (onDatePicked)="createRating($event)"></app-create-rating> -->
-
-    
-      <!-- <md-slide-toggle class="verfolgung" #observ id="observ" *ngIf="showRatingInfo" (change)="getAllReviewsObservable($event)">Verfolgung</md-slide-toggle> -->
-
     <app-rating-info *ngIf="showRatingInfo" (updateRating)="updateRating($event)" (verfolgung)="getAllReviewsObservable($event)" (deletRatingId)="deletRating($event)"
       [rating]="rating" [reviews]="allReviwsForRating" [chartDate]="chartDate"  #setReviewData></app-rating-info>
   </div>

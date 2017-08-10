@@ -9,7 +9,6 @@ import { Observable } from 'rxjs/Rx';
 })
 export class AdminRatingPageComponent implements OnInit {
 
-  showCreateForm: boolean = false;
   showRatingInfo: boolean = false;
   statusCode: number;
   rating: Rating = new Rating(null, null, null, null, null, null, null, null, null, null, null);
@@ -45,11 +44,6 @@ export class AdminRatingPageComponent implements OnInit {
 
   }
 
-  createNewRating() {
-    const ratein = new Rating(null, this.nameRating, this.description, 0, 0, 0, 0, 0, null, true, this.waitingTime);
-    this.createRating(ratein);
-  }
-
   updateRating(rating: Rating): void {
     this.Updaterating(rating);
   }
@@ -64,25 +58,7 @@ export class AdminRatingPageComponent implements OnInit {
       }, (errorCode) => this.statusCode = errorCode);
 
   }
-  createRating(rating: Rating) {
-    this.preProcessConfigurations();
-    this
-      .ratingService
-      .createRating(rating)
-      .subscribe((successCode) => {
-        this.statusCode = successCode;
-        this.requestProcessing = false;
-        this.getAllRating();
-        this.formClose();
-        this.nameError = false;
-      }, (errorCode) => {
-        if (errorCode === 406) {
-          this.nameError = true;
-        }
-      });
-
-  }
-
+  
   getAllRating() {
     this.preProcessConfigurations();
     this
@@ -197,16 +173,9 @@ export class AdminRatingPageComponent implements OnInit {
     ];
 
   }
-  formClose() {
-    this.showCreateForm = false;
-  }
-  formOpen() {
-    this.showCreateForm = true;
-    this.showRatingInfo = false;
-    this.ovservUnSubscribe();
-  }
+
+
   infoRating() {
-    this.formClose();
     this.showRatingInfo = true;
   }
   closeInfpRating() {

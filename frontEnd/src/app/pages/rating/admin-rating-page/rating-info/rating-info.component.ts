@@ -5,7 +5,8 @@ import {
   Output,
   ElementRef,
   EventEmitter,
-  ViewChild
+  ViewChild,
+  OnDestroy
 } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 
@@ -20,7 +21,7 @@ import * as jsPDF from 'jspdf';
 import * as jpt from 'jspdf-autotable';
 
 @Component({ selector: 'app-rating-info', templateUrl: './rating-info.component.html', styleUrls: ['./rating-info.component.scss'] })
-export class RatingInfoComponent implements OnInit {
+export class RatingInfoComponent implements OnInit ,OnDestroy {
 
   @ViewChild('chartContainer') chartContainer: ElementRef;
   @Input() rating: Rating;
@@ -158,9 +159,11 @@ export class RatingInfoComponent implements OnInit {
     });
 
     doc.setProperties({ title: this.rating.nameOfRat, subject: this.rating.description })
-    // doc.fromHTML(document.getElementById('chartContainer'),3,4)
     doc.save(this.rating.nameOfRat + '.pdf');
 
+  }
+    ngOnDestroy(){
+    this.verfolgung.emit(false);    
   }
 
 }
