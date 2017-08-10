@@ -4,3 +4,4 @@ export * from './service/rating.service';
 // export * from './service/api.service'
 export * from './rating-page/rating-page.component';
 export * from './admin-rating-page/admin-rating-page.component';
+export * from  './admin-rating-page/create-rating/create-rating.component';

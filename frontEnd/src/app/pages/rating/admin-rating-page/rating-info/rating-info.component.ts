@@ -28,6 +28,8 @@ export class RatingInfoComponent implements OnInit {
   @Input() chartDate: any;
   @Output() updateRating: EventEmitter<Rating> = new EventEmitter<Rating>();
   @Output() deletRatingId: EventEmitter<any> = new EventEmitter<any>();
+  @Output() verfolgung: EventEmitter<boolean> = new EventEmitter<boolean>();
+  
 
 
   checked: boolean = false;
@@ -57,7 +59,9 @@ export class RatingInfoComponent implements OnInit {
 
     });
   }
-
+  getAllReviewsObservable(value){
+    this.verfolgung.emit(value);
+  }
   setReviewData(reviews): void {
     this.checked = this.rating.active;
     this.reviewDatabase = new ReviewDatabase(reviews);

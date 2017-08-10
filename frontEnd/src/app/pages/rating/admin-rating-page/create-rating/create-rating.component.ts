@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Rating } from '../../';
+import { Rating,RatingService } from '../../';
 
 @Component({
   selector: 'app-create-rating',
@@ -8,13 +8,15 @@ import { Rating } from '../../';
   styleUrls: ['./create-rating.component.scss']
 })
 export class CreateRatingComponent implements OnInit {
-  @Output() onDatePicked: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onCancle: EventEmitter<any> = new EventEmitter<any>();
-  @Input() nameError: boolean;
+
+  nameError: boolean;
   rating: Rating;
   form: FormGroup;
   submitted = false;
-  constructor(private formBuilder: FormBuilder, ) { }
+  requestProcessing = false;
+
+  statusCode: number;
+  constructor(private ratingService: RatingService, private formBuilder: FormBuilder, ) { }
   ngOnInit() {
 
     this.form = this.formBuilder.group({
@@ -29,11 +31,30 @@ export class CreateRatingComponent implements OnInit {
     this.submitted = true;
     const creatRD = this.form.value;
     this.rating = new Rating(null, creatRD.ratingName, creatRD.description, 0, 0, 0, 0, 0, null, creatRD.active, creatRD.waitingTime);
-    this.onDatePicked.emit(this.rating);
+    this.createRating(this.rating);
   }
 
+  createRating(rating: Rating) {
+    this
+      .ratingService
+      .createRating(rating)
+      .subscribe((successCode) => {
+        this.statusCode = successCode;
+        this.requestProcessing = false;
+        this.nameError = false;
+      }, (errorCode) => {
+        if (errorCode === 406) {
+          this.nameError = true;
+        }
+      });
+
+  }
+  preProcessConfigurations() {
+    this.statusCode = null;
+    this.requestProcessing = true;
+  }
   onCansle() {
-    this.onCancle.emit();
+    // this.onCancle.emit();
     // console.log(this.form.value);
   }
 

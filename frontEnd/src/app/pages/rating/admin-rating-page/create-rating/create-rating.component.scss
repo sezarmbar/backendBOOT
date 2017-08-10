@@ -13,6 +13,14 @@ md-card {
   -webkit-animation: fadein 1s; /* Safari and Chrome */
 
 }
+.content{
+  margin: 40px 50px;
+}
+.admin-fab {
+  position: absolute;
+  left: 15px;
+  // top: 10px;
+}
 
 .active-section {
   display: flex;

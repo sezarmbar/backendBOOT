@@ -1,5 +1,7 @@
 <div class="content" fxLayout="row" fxLayoutAlign="center none">
   <md-card>
+    <md-slide-toggle #observ id="observ"n (change)="getAllReviewsObservable($event)">Verfolgung</md-slide-toggle>
+
     <p></p>
     <md-card-title><h2> {{rating.nameOfRat}}</h2> </md-card-title>
     <p></p>
