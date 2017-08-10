@@ -69,9 +69,7 @@ export class RatingPageComponent implements OnInit {
   
 
   state: string = 'inactive';
-    timeOut(item){
-      let rat = item.target.id;
-
+    timeOut(rat){
       this.toggleMove(rat);
       setTimeout(() => {
       this.toggleMove(rat);
@@ -147,6 +145,7 @@ export class RatingPageComponent implements OnInit {
   updateRating(event) {
     if (this.timeout) {
       let rat = event.target.id;
+      this.timeOut(rat);
       let tmpValue = this.rating[rat];
       tmpValue = ((tmpValue) + 1)
       this.rating[rat] = tmpValue
