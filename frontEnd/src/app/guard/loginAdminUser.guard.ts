@@ -5,16 +5,11 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class LoginGuard implements CanActivate {
-  active= true;
+  active = true;
   constructor(private router: Router, private userService: UserService) { }
   canActivate(): boolean {
-    
-    if (this.userService.currentUser) {
-      
-      this.router.navigate(['/']);
-      this.active = false;
-      return this.active;
-    } else {   
+
+    if (!this.userService.currentUser) {
       this.active = true;
       return this.active;
     }
@@ -24,23 +19,27 @@ export class LoginGuard implements CanActivate {
 
 @Injectable()
 export class AdminPage implements CanActivate {
-  active= false;
-  isUser =false;
-  constructor(private router: Router, private loginGuard: LoginGuard, private userService: UserService) { }
+  active = false;
+  isUser = false;
+  constructor(private userService: UserService) { }
 
   canActivate(): boolean {
+    if (this.userService.currentUser) {
       return this.active;
+    }
   }
 
 }
 
 @Injectable()
 export class CreateUserPage implements CanActivate {
-active= false;
-  constructor(private router: Router, private loginGuard: LoginGuard) { }
+  active = false;
+  constructor( private userService: UserService) { }
 
   canActivate(): boolean {
+    if (this.userService.currentUser) {
       return this.active;
+    }
   }
 
 }
