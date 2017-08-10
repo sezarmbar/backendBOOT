@@ -5,8 +5,50 @@ import { Rating, Review } from "../";
 import { MdDialog, MdDialogRef } from '@angular/material';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Rx';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  keyframes
+} from '@angular/animations';
 
-@Component({ selector: 'app-rating-page', templateUrl: './rating-page.component.html', styleUrls: ['./rating-page.component.scss'] })
+    
+@Component({ selector: 'app-rating-page', templateUrl: './rating-page.component.html', styleUrls: ['./rating-page.component.scss'],
+animations: [
+  
+          trigger('focusPanel', [
+              state('inactive', style({
+                  transform: 'scale(1)',
+                  // backgroundColor: '#eee'
+                  zIndex: 2
+                  
+              })),
+              state('active', style({
+                  transform: 'scale(3)',
+                  zIndex: 999
+                  // backgroundColor: '#cfd8dc'
+              })),
+              transition('inactive => active', animate('100ms ease-in')),
+              transition('active => inactive', animate('100ms ease-out'))
+          ]),
+  
+          trigger('movePanel', [
+              
+              transition('void => *', [
+                  animate(600, keyframes([
+                      style({opacity: 0, transform: 'translateY(-200px)', offset: 0}),
+                      style({opacity: 1, transform: 'translateY(25px)', offset: .95}),
+                      style({opacity: 1, transform: 'translateY(0)', offset: 1}),
+                  ]))
+              ])
+  
+          ])
+  
+  
+      ]
+})
 export class RatingPageComponent implements OnInit {
   statusCode: number;
   rating: Rating;
@@ -22,6 +64,24 @@ export class RatingPageComponent implements OnInit {
   review: Review;
   timeout: boolean = true;
   timeoutReview: boolean = false;
+
+  empjiStatus:EmpjiStatus;
+  
+
+  state: string = 'inactive';
+    timeOut(item){
+      let rat = item.target.id;
+
+      this.toggleMove(rat);
+      setTimeout(() => {
+      this.toggleMove(rat);
+      
+        },250);
+    }
+      toggleMove(rat) {
+          this.empjiStatus[rat] = (this.empjiStatus[rat] === 'inactive' ? 'active' : 'inactive');
+      }
+
   constructor(public dialog: MdDialog, private ratingService: RatingService,
               private router: Router, private activatedRoute: ActivatedRoute) {
 
@@ -35,7 +95,7 @@ export class RatingPageComponent implements OnInit {
 
   ngOnInit() {
     this.getURL();
-
+    this.empjiStatus = new EmpjiStatus('inactive','inactive','inactive','inactive','inactive');
     this.ratingObserve = Observable.interval(1000 * 60).subscribe(x => {
       this.getRatingByName(this.currentNameRating)
     });
@@ -166,4 +226,13 @@ export class DialogReviewEnter {
   public enteredReview: string;
   constructor(public dialogRef: MdDialogRef<DialogReviewEnter>) { }
 
+}
+
+export class EmpjiStatus{
+  constructor( 
+  public veryBad: string,
+  public bad: string,
+  public normal: string,
+  public god: string,
+  public veryGod: string,){}
 }

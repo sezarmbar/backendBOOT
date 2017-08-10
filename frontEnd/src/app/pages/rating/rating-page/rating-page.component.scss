@@ -12,9 +12,9 @@
 @media screen and (min-width: 681px) {
   .emoghTable {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
+    top: 40%;
+    left: 41%;
+    // margin-right: -50%;
     transform: translate(-50%, -50%);
   }
   .title {
@@ -28,7 +28,7 @@
 
 table {
   border-collapse: collapse;
-  width: 100%
+  width: 90%
 }
 
 @media screen and (max-width: 680px) {
@@ -54,8 +54,15 @@ table {
 }
 
 img {
-  max-width: 95%;
+  position: absolute;
+  
+  max-width: 19.5%;
   height: auto;
-  width: auto\\9;
+  // width: auto\\9;
+
   /* ie8 */
+}
+
+.index999{
+  z-index: 999;
 }
