@@ -20,7 +20,11 @@ export class CreateFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, ) { }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
+    this.form = this.buildForm();
+  }
+
+  buildForm(){
+     return this.formBuilder.group({
       firstname: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(16)])],
       lastname: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(16)])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
@@ -32,10 +36,8 @@ export class CreateFormComponent implements OnInit {
   }
 
 
-
-
   onSubmit() {
-
+    
     this.submitted = true;
     
     const ROLE_USER = new Authority('ROLE_USER');
