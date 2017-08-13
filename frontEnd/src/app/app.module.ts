@@ -7,6 +7,7 @@ import { ServiceAppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 
@@ -146,7 +147,8 @@ import { CreateFormComponent } from './pages/create-users/create-form/create-for
     MdTabsModule,
     MdToolbarModule,
     MdTooltipModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ToastrModule.forRoot()
   ]
 })
 export class AppModule { }

@@ -21,12 +21,12 @@ public class Authority {
     private AuthorityName name;
 
 //    @ManyToMany
-    @ManyToMany(fetch = FetchType.LAZY)
+//    @ManyToMany(fetch = FetchType.LAZY)
 //    @JoinTable(
 //            name = "USER_AUTHORITY",
 //            joinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")},
 //            inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")})
-    private List<User> users;
+//    private List<User> users;
 
     public Long getId() {
         return id;
@@ -44,11 +44,11 @@ public class Authority {
         this.name = name;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
+//    public List<User> getUsers() {
+//        return users;
+//    }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
+//    public void setUsers(List<User> users) {
+//        this.users = users;
+//    }
 }

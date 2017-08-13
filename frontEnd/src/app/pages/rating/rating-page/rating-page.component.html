@@ -3,10 +3,11 @@
     <div *ngIf="isLoaded" class="title"> {{title}}</div>
     <table class="emoghTable">
       <tr>
-        <td ><img  (click)="updateRating($event)" [@focusPanel]="empjiStatus.veryBad" [@movePanel]="empjiStatus.veryBad"  (click)="openDialog()" id="veryBad" src="./assets/img/veryBad.png" alt="" /></td>
-        <td ><img  (click)="updateRating($event)" [@focusPanel]="empjiStatus.bad" [@movePanel]="empjiStatus.bad"  (click)="openDialog()" id="bad"src="./assets/img/bad.png" alt="" /></td>
-        <td ><img  (click)="updateRating($event)" [@focusPanel]="empjiStatus.normal"  [@movePanel]="empjiStatus.normal"    id="normal" src="./assets/img/normal.png" alt="" /></td>
-        <td ><img  (click)="updateRating($event)" [@focusPanel]="empjiStatus.god"  [@movePanel]="empjiStatus.god"  id="god" src="./assets/img/god.png" alt="" /></td>  <td ><img  (click)="updateRating($event)" [@focusPanel]="empjiStatus.veryGod"  [@movePanel]="empjiStatus.veryGod"     id="veryGod" src="./assets/img/veryGod.png" alt="" /></td>
+        <td ><img  (click)="updateRating($event)" [@focusPanel]="empjiStatus.veryBad" [@movePanel]="empjiStatus.veryBad" id="veryBad" src="./assets/img/veryBad.png" alt="" /></td>
+        <td ><img  (click)="updateRating($event)" [@focusPanel]="empjiStatus.bad"     [@movePanel]="empjiStatus.bad"     id="bad"src="./assets/img/bad.png" alt="" /></td>
+        <td ><img  (click)="updateRating($event)" [@focusPanel]="empjiStatus.normal"  [@movePanel]="empjiStatus.normal"  id="normal" src="./assets/img/normal.png" alt="" /></td>
+        <td ><img  (click)="updateRating($event)" [@focusPanel]="empjiStatus.god"     [@movePanel]="empjiStatus.god"     id="god" src="./assets/img/god.png" alt="" /></td> 
+        <td ><img  (click)="updateRating($event)" [@focusPanel]="empjiStatus.veryGod" [@movePanel]="empjiStatus.veryGod" id="veryGod" src="./assets/img/veryGod.png" alt="" /></td>
       </tr>
     </table>
   </div>

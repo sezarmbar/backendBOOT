@@ -13,6 +13,7 @@ import {
   transition,
   keyframes
 } from '@angular/animations';
+import { ToastrService } from 'ngx-toastr';
 
     
 @Component({ selector: 'app-rating-page', templateUrl: './rating-page.component.html', styleUrls: ['./rating-page.component.scss'],
@@ -20,18 +21,18 @@ animations: [
   
           trigger('focusPanel', [
               state('inactive', style({
-                  transform: 'scale(1)',
+                  transform: 'rotateY(179.9deg)',
                   // backgroundColor: '#eee'
                   zIndex: 2
                   
               })),
               state('active', style({
                   transform: 'scale(3)',
-                  zIndex: 999
+                  zIndex: 999,
                   // backgroundColor: '#cfd8dc'
               })),
-              transition('inactive => active', animate('100ms ease-in')),
-              transition('active => inactive', animate('100ms ease-out'))
+              transition('inactive => active', animate('400ms ease-in')),
+              transition('active => inactive', animate('400ms ease-out'))
           ]),
   
           trigger('movePanel', [
@@ -45,7 +46,6 @@ animations: [
               ])
   
           ])
-  
   
       ]
 })
@@ -73,14 +73,16 @@ export class RatingPageComponent implements OnInit {
       this.toggleMove(rat);
       setTimeout(() => {
       this.toggleMove(rat);
+      this.openDialog();    
       
-        },250);
+        },800);
     }
       toggleMove(rat) {
           this.empjiStatus[rat] = (this.empjiStatus[rat] === 'inactive' ? 'active' : 'inactive');
       }
 
   constructor(public dialog: MdDialog, private ratingService: RatingService,
+              private toastr: ToastrService,
               private router: Router, private activatedRoute: ActivatedRoute) {
 
 
@@ -153,7 +155,12 @@ export class RatingPageComponent implements OnInit {
       this.onAddOrUpdateRate(this.rating);
       if (rat === "bad" || rat === "veryBad")
         this.timeoutReview = true;
-      setTimeout(() => this.timeout = true, this.rating.waitingTime * 60000);
+        // this.openDialog();    
+        setTimeout(() => this.timeout = true, this.rating.waitingTime * 60000);
+    }else{
+
+      
+        this.toastr.warning('!!!', 'warten bitte ');
     }
 
   }
