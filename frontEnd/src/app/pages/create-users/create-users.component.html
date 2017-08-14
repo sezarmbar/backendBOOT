@@ -4,14 +4,19 @@
     <div class="create-user-scrolling-side-content">
 
       <md-toolbar>
-        <span class="toolbar-create-user">Benutzer erstellen</span>
+        <span class="toolbar-create-user">Benutzer</span>
         <button md-mini-fab color="primary" *ngIf="sidenav.opened" class="create-user-fab-close" (click)="sidenav.toggle()">
           <md-icon>close</md-icon>
         </button>
       </md-toolbar>
       <md-list>
+        <md-list-item>
+           <a class="button-rating" (click)="showCreateForm =!showCreateForm" md-raised-button color="primary">
+              Benutzer erstellen
+          </a>
+        </md-list-item>
         <md-list-item *ngFor="let user of allUsers">
-          <a md-button class="button-rating" >{{user.firstname}}</a>
+          <a md-button class="button-rating" (click)="getUser(user)" >{{user.firstname}}</a>
         </md-list-item>
 
       </md-list>
@@ -24,5 +29,6 @@
   </button>
   <div class="create-user-scrolling-content">
     <user-create-form *ngIf="showCreateForm" (onDatePicked)="createUser($event)"> </user-create-form>
+    <edit-user [userIncome]="user" *ngIf="!showCreateForm"> </edit-user>
   </div>
 </md-sidenav-container>

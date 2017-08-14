@@ -17,6 +17,7 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review,Long> {
     List<Review> findAllByRating(Rating rating);
 
+
     @Query("SELECT  r.reviewText FROM Review r  WHERE r.rating = (:rating)")
     List<Review> findAllByRatingLazy(@Param("rating") Rating rating);
 

@@ -23,10 +23,13 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void save(User user) {
+    public boolean save(User user) {
+        if(isExist(user)){
+            return false;
+        }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//        user.setAuthorities((List<Authority>) new HashSet(authorityRepository.findAll()));
         userRepository.save(user);
+        return true;
     }
     @Override
     public User findByUsername(String username) {
@@ -35,6 +38,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        return userRepository.findAll();
+        return (List<User>) userRepository.findAll();
+    }
+
+    @Override
+    public boolean update(User user) {
+        User exist = findByUsername(user.getUsername());
+        if(exist!= null){
+            if(user.getPassword()==null){
+                user.setPassword(bCryptPasswordEncoder.encode(exist.getPassword()));
+            }
+            user.setId(exist.getId());
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isExist(User user){
+        User exist = findByUsername(user.getUsername());
+        if(exist!=null){
+            return true;
+        }
+        return false;
     }
 }

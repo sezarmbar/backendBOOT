@@ -46,16 +46,35 @@ public class UserRestController {
     }
     @PostMapping("/registration")
     public  ResponseEntity<Void> createNewUser(@RequestBody User user, UriComponentsBuilder builder){
-        userService.save(user);
-
+        boolean flag = userService.save(user);
+        if(!flag){
+            return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
+        }
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/user?id={id}").buildAndExpand(user.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
+
+    @PostMapping("/update")
+    public  ResponseEntity<Void> updateUser(@RequestBody User user, UriComponentsBuilder builder){
+        boolean flag = userService.update(user);
+        if(!flag){
+            return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+
     @GetMapping("all-User")
     public ResponseEntity<List<User>> getAllArticles() {
         List<User> list = userService.findAll();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    public ResponseEntity<Void> updateUser(@RequestBody User user){
+//        userService.save();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

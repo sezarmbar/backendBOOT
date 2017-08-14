@@ -1,24 +1,24 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import {Rating, RatingService} from '../../';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Rating, RatingService } from '../../';
 import { ToastrService } from 'ngx-toastr';
 
-@Component({selector: 'app-create-rating', templateUrl: './create-rating.component.html', styleUrls: ['./create-rating.component.scss']})
+@Component({ selector: 'app-create-rating', templateUrl: './create-rating.component.html', styleUrls: ['./create-rating.component.scss'] })
 export class CreateRatingComponent implements OnInit {
 
-  nameError : boolean;
-  rating : Rating;
-  form : FormGroup;
+  nameError: boolean;
+  rating: Rating;
+  form: FormGroup;
   submitted = false;
   requestProcessing = false;
-  statusCode : number;
+  statusCode: number;
 
-  ratingName : FormControl;
-  waitingTime : FormControl;
-  description : FormControl;
-  active : FormControl;
+  ratingName: FormControl;
+  waitingTime: FormControl;
+  description: FormControl;
+  active: FormControl;
 
-  constructor(private toastr: ToastrService,private ratingService : RatingService, private formBuilder : FormBuilder,) {
+  constructor(private toastr: ToastrService, private ratingService: RatingService, private formBuilder: FormBuilder) {
     this.createForm();
   }
   showSuccess() {
@@ -28,19 +28,17 @@ export class CreateRatingComponent implements OnInit {
     this.createForm();
   }
   createForm() {
-    this.ratingName = new FormControl('', [
-      Validators.required, Validators.minLength(3)
-    ]);
+    this.ratingName = new FormControl('', [Validators.required, Validators.minLength(3)]);
     this.waitingTime = new FormControl('', Validators.required);
     this.description = new FormControl('', Validators.required);
     this.active = new FormControl('');
 
     this.form = this
       .formBuilder
-      .group({ratingName: this.ratingName, waitingTime: this.waitingTime, description: this.description, active: this.active});
+      .group({ ratingName: this.ratingName, waitingTime: this.waitingTime, description: this.description, active: this.active });
 
   }
-  showForm : boolean = true;
+  showForm: boolean = true;
   onSubmit() {
     this.submitted = true;
     const creatRD = this.form.value;
@@ -49,12 +47,12 @@ export class CreateRatingComponent implements OnInit {
 
     this.showForm = false;
     setTimeout(() => {
-      this.createForm()
+      this.createForm();
       this.showForm = true;
     });
   }
 
-  createRating(rating : Rating) {
+  createRating(rating: Rating) {
     this
       .ratingService
       .createRating(rating)

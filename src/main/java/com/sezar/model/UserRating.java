@@ -3,7 +3,7 @@ package com.sezar.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_rating")
+@Table(name = "UserRating")
 public class UserRating {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
