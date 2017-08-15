@@ -141,7 +141,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.updateUser();
   }
   updateUser(){
-    console.log(this.userToUpdate);
     this.onDatePicked.emit(this.userToUpdate);
   }
 
