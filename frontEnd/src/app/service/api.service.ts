@@ -1,5 +1,6 @@
 import { User } from './../pages/create-users/model/user';
-import { Http, Headers, Response, RequestMethod, RequestOptions } from '@angular/http';
+import { Http, Headers, Response, URLSearchParams, RequestMethod, RequestOptions } from '@angular/http';
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -8,7 +9,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class ApiService2 {
 
-  tokenName='jwtToken';
+  tokenName = 'jwtToken';
   headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
   cpHeaders = new Headers({ 'Content-Type': 'application/json' });
   options = new RequestOptions({ headers: this.cpHeaders });
@@ -43,8 +44,6 @@ export class ApiService2 {
   }
   // =========
   getPotected(): Observable<any> {
-    console.log("get protected")
-
     return this.http.get(
       '/protected', this.getOptions()
     )
@@ -53,13 +52,13 @@ export class ApiService2 {
   }
   // --------------
   getOptions() {
-    const jtoken = localStorage.getItem(this.tokenName)
+    const jtoken = localStorage.getItem(this.tokenName);
     const cpHeaders = new Headers({ 'Content-Type': 'application/json', "Authorization": jtoken });
     const options = new RequestOptions({ headers: cpHeaders });
     return options;
   }
-    getcpHeaders() {
-    const jtoken = localStorage.getItem(this.tokenName)
+  getcpHeaders() {
+    const jtoken = localStorage.getItem(this.tokenName);
     const cpHeaders = new Headers({ 'Content-Type': 'application/json', "Authorization": jtoken });
     return cpHeaders;
   }
@@ -75,7 +74,7 @@ export class ApiService2 {
   getAllUsers(url): Observable<User[]> {
     const options = this.getOptions();
     return this.http
-      .get(url,options)
+      .get(url, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -106,9 +105,30 @@ export class ApiService2 {
       .catch(this.handleError);
   }
   put(path: string, body: any): Observable<any> {
-    return this.post(path, body, true);
+    const options = this.getOptions();
+    return this.post(path, body, options);
   }
 
+  getUserRating(path: string, userName: string): Observable<any> {
+    const cpHeaders = this.getcpHeaders();
+    const cpParams = new URLSearchParams();
+    cpParams.set('userName', userName);
+    const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+
+    return this.http.get(path, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  putUserRating(path: string, userRating) {
+    const cpHeaders = this.getcpHeaders();
+    const options = new RequestOptions({ headers: cpHeaders});
+    return this
+      .http
+      .post(path, userRating, options)
+      .map(success => success.status)
+      .catch(this.handleError);
+  }
 
   private extractData(res: Response) {
     const body = res.json();

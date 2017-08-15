@@ -18,9 +18,14 @@ export class ConfigService {
 
     private _whoami_url = '/user';
 
-    private _users_url ='/all-User';
+    private _users_url = '/all-User';
 
     private _foo_url = this._api_url + '/foo';
+
+    private _users_rating_url = this._api_url + '/userRating';
+
+    private _users_rating_delete_all_url = this._api_url + '/deleteByUserName';
+
 
     get api_url(): string {
         return this._api_url;
@@ -53,5 +58,12 @@ export class ConfigService {
         return this._foo_url;
     }
 
+    get user_rating_url(){
+        return this._users_rating_url;
+    }
+
+    get users_rating_delete_all_url(){
+        return this._users_rating_delete_all_url;
+    }
 
 }

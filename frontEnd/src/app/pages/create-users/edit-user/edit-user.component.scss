@@ -1,3 +1,33 @@
 .full-width {
   width: 100%;
 }
+
+md-card {
+  margin: 10px 10px 10px 10px;
+  max-width: 500px;
+  min-width: 350px;
+  text-align: center;
+  animation: fadein 1s;
+  -o-animation: fadein 1s; /* Opera */
+  -moz-animation: fadein 1s; /* Firefox */
+  -webkit-animation: fadein 1s; /* Safari and Chrome */
+
+}
+
+.content{
+    padding-top: 40px;
+}
+
+.full-width {
+  width: 100%;
+}
+.width-15 {
+  width: 15px;
+  // text-align: left;
+}
+
+
+.width-50 {
+  width: 50%;
+  // text-align: left;
+}

@@ -1,5 +1,4 @@
 import { ApiService2 } from './../../../service/api.service';
-import { ApiService } from './api.service11111';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
@@ -79,7 +78,7 @@ export class RatingService {
 
   getRatingByName(name: string): Observable<Rating> {
     let cpHeaders = this.apiService.getcpHeaders();
-    
+
     let cpParams = new URLSearchParams();
     cpParams.set('name', name);
     let options = new RequestOptions({ headers: cpHeaders, params: cpParams });

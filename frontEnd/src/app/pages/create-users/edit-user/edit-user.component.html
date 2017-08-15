@@ -6,17 +6,17 @@
       <h2>Benutzer</h2>
     </md-card-title>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" #createUserForm="ngForm">
+    <form #createUserForm="ngForm">
       <table class="full-width" cellspacing="0">
         <tr>
           <td>
             <md-input-container class="full-width">
-              <input mdInput formControlName="firstname" placeholder="Vor Name">
+              <input mdInput value="{{user.firstname}}" placeholder="Vor Name">
             </md-input-container>
           </td>
           <td>
             <md-input-container class="full-width">
-              <input mdInput formControlName="lastname" placeholder="Nach Name">
+              <input mdInput value="{{user.lastname}}" placeholder="Nach Name">
             </md-input-container>
           </td>
           <td class="width-15">
@@ -28,12 +28,12 @@
           <tr>
             <td>
               <md-input-container class="full-width">
-                <input mdInput formControlName="username" placeholder="Benutzer">
+                <input mdInput value="{{user.username}}" disabled placeholder="Benutzer">
               </md-input-container>
             </td>
             <td>
               <md-input-container class="full-width">
-                <input mdInput formControlName="password" placeholder="Passwort" [type]="showPassword.checked ? 'text' : 'password'">
+                <input mdInput value="{{user.password}}" placeholder="Passwort" [type]="showPassword.checked ? 'text' : 'password'">
               </md-input-container>
             </td>
             <td class="width-15">
@@ -46,7 +46,7 @@
             <tr>
               <td>
                 <md-input-container class="full-width">
-                  <input mdInput formControlName="email" placeholder="Email">
+                  <input mdInput value="{{user.email}}" placeholder="Email">
                 </md-input-container>
               </td>
             </tr>
@@ -58,7 +58,7 @@
                   <div *ngIf="Active.checked">Aktiv</div>
                   <div *ngIf="!Active.checked">Deaktiviert</div>
                   <p>
-                    <md-slide-toggle formControlName="active" #Active>
+                    <md-slide-toggle name="active" [(ngModel)]="user.enabled" #Active>
 
                     </md-slide-toggle>
                 </td>
@@ -66,12 +66,54 @@
                   <div *ngIf="Admin.checked">Admin</div>
                   <div *ngIf="!Admin.checked">User</div>
                   <p>
-                    <md-slide-toggle formControlName="admin" #Admin></md-slide-toggle>
+                    <md-slide-toggle name="admin" [(ngModel)]="admin" #Admin></md-slide-toggle>
                 </td>
               </tr>
             </table>
             <p>
-              <button class="full-width" type="submit" [disabled]="!createUserForm.form.valid" md-raised-button color="primary">erstellen</button>
+              <button class="full-width" type="submit" [disabled]="!createUserForm.form.valid" md-raised-button color="primary">Aktualisieren</button>
     </form>
+  </md-card>
+
+  <md-card>
+
+    <md-card-title>
+      <h2>Bewertungen</h2>
+    </md-card-title>
+    <table class="full-width" cellspacing="0">
+      <tr *ngFor="let rat of selfRatings">
+        <td>
+          <md-input-container class="full-width">
+            <input mdInput value="{{rat.ratingName}}" disabled>
+          </md-input-container>
+        </td>
+        <td>
+          <a class="full-width" md-raised-button color="primary">delete</a>
+        </td>
+      </tr>
+    </table>
+
+    <table class="full-width" cellspacing="0">
+      <tr>
+        <td>
+          <md-input-container>
+            <input mdInput placeholder="Bewertung" #NewUserRating [mdAutocomplete]="auto" [formControl]="stateCtrl">
+          </md-input-container>
+          <md-autocomplete #auto="mdAutocomplete">
+            <md-option *ngFor="let state of filteredStates | async" [value]="state">
+              {{ state }}
+            </md-option>
+          </md-autocomplete>
+        </td>
+        <td>
+          <button class="full-width" md-raised-button color="primary" (click)="preAddUserRating(NewUserRating.value)">Add</button>
+
+        </td>
+
+      </tr>
+    </table>
+    <p>
+
+
   </md-card>
 </div>

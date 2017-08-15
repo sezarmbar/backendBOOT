@@ -1,64 +1,74 @@
+import { FormControl } from '@angular/forms';
+import { Rating } from './../../rating/model/rating';
 import { User } from './../model/user';
 import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs/Subject';
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss']
 })
-export class EditUserComponent implements OnInit , OnDestroy {
+export class EditUserComponent implements OnInit, OnDestroy {
   @Output() onDatePicked: EventEmitter<any> = new EventEmitter<any>();
-  @Input() userIncome: Subject<any>;
-  submitted = false;
-  form: FormGroup;
-  authorities: Authority[] = [];
-  FormDataValue;
-  active2 = false;
-  user: User;
-  firstname: FormControl;
-  lastname: FormControl;
-  username: FormControl;
-  password: FormControl;
-  email: FormControl;
-  active: FormControl;
-  admin: FormControl;
+  @Output() userRating: EventEmitter<any> = new EventEmitter<any>();
+  @Input() user: User;
+  @Input() allRatings;
+  @Input() selfRatings;
+  stateCtrl: FormControl;
+  filteredStates: any;
+  admin = false;
+  numRatings = 0;
+  
+  constructor(private toastr: ToastrService) {
+    this.stateCtrl = new FormControl();
+    this.filteredStates = this.stateCtrl.valueChanges
+      .startWith(null)
+      .map(name => this.filterStates(name));
+  }
 
-
-  constructor(private toastr: ToastrService, private formBuilder: FormBuilder) { }
-// TODO
   ngOnInit() {
-    this.userIncome.subscribe(event => {
-      console.log(event);
-      this.user = event;
-    });
-    this.createForm();
   }
-// https://stackoverflow.com/questions/37677122/child-listens-for-parent-event-in-angular-2
-  createForm() {
-    this.firstname = new FormControl(this.user.firstname);
-    this.lastname = new FormControl(this.user.lastname);
-    this.username = new FormControl(this.user.username);
-    this.password = new FormControl('');
-    this.email = new FormControl(this.user.email);
-    this.active = new FormControl('');
-    this.admin = new FormControl('');
-    this.form = this.formBuilder.group({
-      firstname: this.firstname,
-      lastname: this.lastname,
-      username: this.username,
-      password: this.password,
-      email: this.email,
-      active: this.active,
-      admin: this.admin
-    });
+
+  ngOnDestroy() {
   }
-ngOnDestroy() {
-  this.userIncome.unsubscribe();
+
+  isAdmin() {
+    this.admin = this.getRoles();
+  }
+
+
+  getRoles(): boolean {
+    let isAdmin = false;
+    const roles: Array<Authority> = this.user.authorities as Array<Authority>;
+    const role = roles.find(role => { return role.name === 'ROLE_ADMIN'; });
+    if (role !== undefined) {
+      isAdmin = true;
+    }
+    return isAdmin;
+  }
+
+  filterStates(val: string) {
+    return val ? this.allRatings.filter(s => s.toLowerCase().indexOf(val.toLowerCase()) === 0)
+      : this.allRatings;
+  }
+  preAddUserRating(value) {
+    let userRating;
+    if (value !== '') {
+       userRating = new UserRating(value, this.user.username);
+       this.addUserRating(userRating);
+    }
+  }
+  addUserRating(userRating) {
+    this.userRating.emit(userRating);
+  }
 }
+
+export class UserRating {
+  constructor(public ratingName: string, public userName: string) { }
 }
 export class Authority {
-  constructor(private name: string) { }
+  constructor(id: number, public name: string) { }
 
 }

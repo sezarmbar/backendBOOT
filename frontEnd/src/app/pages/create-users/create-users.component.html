@@ -2,7 +2,7 @@
   <md-sidenav #sidenav mode="side" opened="true">
 
     <div class="create-user-scrolling-side-content">
-
+      
       <md-toolbar>
         <span class="toolbar-create-user">Benutzer</span>
         <button md-mini-fab color="primary" *ngIf="sidenav.opened" class="create-user-fab-close" (click)="sidenav.toggle()">
@@ -16,7 +16,7 @@
           </a>
         </md-list-item>
         <md-list-item *ngFor="let user of allUsers">
-          <a md-button class="button-rating" (click)="getUser(user)" >{{user.firstname}}</a>
+          <a md-button class="button-rating"  (click)="getUser(user)" >{{user.firstname}}</a>
         </md-list-item>
 
       </md-list>
@@ -29,6 +29,7 @@
   </button>
   <div class="create-user-scrolling-content">
     <user-create-form *ngIf="showCreateForm" (onDatePicked)="createUser($event)"> </user-create-form>
-    <edit-user [userIncome]="user" *ngIf="!showCreateForm"> </edit-user>
+    <edit-user [user]="curentUser" [allRatings]="ratingsArray" [selfRatings]="userSelfRatings" 
+              (userRating)="putUserRating($event)"  *ngIf="!showCreateForm"> </edit-user>
   </div>
 </md-sidenav-container>
