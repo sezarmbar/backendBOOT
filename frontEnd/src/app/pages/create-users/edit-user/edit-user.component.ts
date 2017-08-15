@@ -13,6 +13,7 @@ import { Subject } from 'rxjs/Subject';
 export class EditUserComponent implements OnInit, OnDestroy {
   @Output() onDatePicked: EventEmitter<any> = new EventEmitter<any>();
   @Output() userRating: EventEmitter<any> = new EventEmitter<any>();
+  @Output() delteUserRating: EventEmitter<any> = new EventEmitter<any>();
   @Input() user: User;
   @Input() allRatings;
   @Input() selfRatings;
@@ -20,7 +21,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   filteredStates: any;
   admin = false;
   numRatings = 0;
-  
+
   constructor(private toastr: ToastrService) {
     this.stateCtrl = new FormControl();
     this.filteredStates = this.stateCtrl.valueChanges
@@ -56,17 +57,27 @@ export class EditUserComponent implements OnInit, OnDestroy {
   preAddUserRating(value) {
     let userRating;
     if (value !== '') {
-       userRating = new UserRating(value, this.user.username);
-       this.addUserRating(userRating);
+      userRating = new UserRating(null, value, this.user.username);
+      this.addUserRating(userRating);
     }
   }
+
   addUserRating(userRating) {
-    this.userRating.emit(userRating);
+    const userRatings: Array<UserRating> = this.selfRatings as Array<UserRating>;
+    // tslint:disable-next-line:arrow-return-shorthand
+    const UR = userRatings.find(ur => { return ur.ratingName === userRating.ratingName });
+    if (UR === undefined) {
+      this.userRating.emit(userRating);
+    }
+  }
+
+  dleteUserRating(userRating: UserRating) {
+    this.delteUserRating.emit(userRating);
   }
 }
 
 export class UserRating {
-  constructor(public ratingName: string, public userName: string) { }
+  constructor(public id: number, public ratingName: string, public userName: string) { }
 }
 export class Authority {
   constructor(id: number, public name: string) { }

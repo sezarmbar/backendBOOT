@@ -122,10 +122,18 @@ export class ApiService2 {
 
   putUserRating(path: string, userRating) {
     const cpHeaders = this.getcpHeaders();
-    const options = new RequestOptions({ headers: cpHeaders});
+    const options = new RequestOptions({ headers: cpHeaders });
     return this
       .http
       .post(path, userRating, options)
+      .map(success => success.status)
+      .catch(this.handleError);
+  }
+
+  deleteUserRating(path: string, userRating) {
+    const cpHeaders = this.getcpHeaders();
+    const options = new RequestOptions({ headers: cpHeaders, body: userRating });
+    return this.http.delete(path, options)
       .map(success => success.status)
       .catch(this.handleError);
   }

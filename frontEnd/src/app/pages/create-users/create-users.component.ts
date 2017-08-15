@@ -81,8 +81,13 @@ export class CreateUsersComponent implements OnInit {
       .subscribe(() => this.getUserRatings(userRating.userName), (error) => console.log(error));
   }
 
+  delteUserRating(userRating: UserRating) {
+    this.apiService.deleteUserRating(this.config.user_rating_url, userRating)
+      .subscribe(() => this.getUserRatings(userRating.userName), (error) => console.log(error));
+  }
+
 
 }
 export class UserRating {
-  constructor(public ratingName: string, public userName: string) { }
+  constructor(public id: number, public ratingName: string, public userName: string) { }
 }

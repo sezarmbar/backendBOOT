@@ -30,6 +30,6 @@
   <div class="create-user-scrolling-content">
     <user-create-form *ngIf="showCreateForm" (onDatePicked)="createUser($event)"> </user-create-form>
     <edit-user [user]="curentUser" [allRatings]="ratingsArray" [selfRatings]="userSelfRatings" 
-              (userRating)="putUserRating($event)"  *ngIf="!showCreateForm"> </edit-user>
+              (userRating)="putUserRating($event)" (delteUserRating)="delteUserRating($event)"  *ngIf="!showCreateForm"> </edit-user>
   </div>
 </md-sidenav-container>
