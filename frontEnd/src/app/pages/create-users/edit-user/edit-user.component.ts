@@ -1,7 +1,7 @@
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Rating } from './../../rating/model/rating';
 import { User } from './../model/user';
-import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs/Subject';
 @Component({
@@ -17,26 +17,71 @@ export class EditUserComponent implements OnInit, OnDestroy {
   @Input() user: User;
   @Input() allRatings;
   @Input() selfRatings;
+  userToUpdate: User;
+  authorities: Authority[] = [{name: "ROLE_USER"}];
+  FormDataValue;
   stateCtrl: FormControl;
   filteredStates: any;
   admin = false;
-  numRatings = 0;
 
-  constructor(private toastr: ToastrService) {
+  _anotherUsername:boolean =false;
+  numRatings = 0;
+  form: FormGroup;
+  firstname: FormControl;
+  lastname: FormControl;
+  username: FormControl;
+  password: FormControl;
+  email: FormControl;
+  active: FormControl;
+  isadmin: FormControl;
+
+  ngOnInit() {
+    this.createForm();
+  }
+
+  ngOnDestroy() {
+  }
+  createForm(){
+    this.firstname = new FormControl(this.user.firstname, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(16)]));
+    this.lastname = new FormControl(this.user.lastname, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(16)]));
+    this.username = new FormControl(this.user.username, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(64)]));
+    this.password = new FormControl(null);
+    this.email = new FormControl(this.user.email,Validators.email);
+    this.active = new FormControl(this.user.enabled);
+    this.isadmin = new FormControl(this.getRoles());
+
+    this.form = this.formBuilder.group({
+      firstname: this.firstname ,
+      lastname : this.lastname ,
+      username : this.username ,
+      password : this.password ,
+      email : this.email ,
+      active : this.active ,
+      isadmin : this.isadmin 
+    });
+  }
+
+  constructor(private toastr: ToastrService, private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) {
     this.stateCtrl = new FormControl();
     this.filteredStates = this.stateCtrl.valueChanges
       .startWith(null)
       .map(name => this.filterStates(name));
   }
-
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
   }
 
-  ngOnDestroy() {
-  }
 
   isAdmin() {
     this.admin = this.getRoles();
+    this._anotherUsername = false;
+    this.preUpdateUser();
+  }
+  anotherUsername(){
+    this._anotherUsername = true;
+  }
+  anotherUsernameFalse(){
+    this._anotherUsername = false;
   }
   getRoles(): boolean {
     let isAdmin = false;
@@ -69,11 +114,43 @@ export class EditUserComponent implements OnInit, OnDestroy {
   dleteUserRating(userRating: UserRating) {
     this.delteUserRating.emit(userRating);
   }
-  updateUser(user){
-    this.onDatePicked.emit(user);
+  preUpdateUser(){
+    this.form.patchValue({
+      firstname: this.user.firstname ,
+      lastname : this.user.lastname ,
+      username : this.user.username ,
+      // password : this.user.password ,
+      email : this.user.email ,
+      active : this.user.enabled ,
+      isadmin : this.getRoles()
+    })
   }
-}
+  onSubmit(){
 
+    // const ROLE_USER = new Authority(null,'ROLE_USER');
+    // this.authorities.push(ROLE_USER);
+
+    this.FormDataValue = this.form.value;
+    if (this.FormDataValue.isadmin) {
+      const ROLE_ADMIN = new Authority(null,'ROLE_ADMIN');
+      this.authorities.push(ROLE_ADMIN);
+    }
+
+    this.userToUpdate = new User(this.user.id,this.FormDataValue.email,this.FormDataValue.username,this.FormDataValue.password,
+                        this.FormDataValue.firstname,this.FormDataValue.lastname,this.authorities,this.FormDataValue.active);
+    this.updateUser();
+  }
+  updateUser(){
+    console.log(this.userToUpdate);
+    this.onDatePicked.emit(this.userToUpdate);
+  }
+
+  succesMessage(message){
+    this.toastr.success(message);
+  }
+
+}
+// classes
 export class UserRating {
   constructor(public id: number, public ratingName: string, public userName: string) { }
 }
@@ -81,3 +158,6 @@ export class Authority {
   constructor(id: number, public name: string) { }
 
 }
+
+
+

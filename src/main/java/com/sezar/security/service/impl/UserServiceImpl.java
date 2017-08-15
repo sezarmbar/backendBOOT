@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public User findByUsername(String username) {
+
         return userRepository.findByUsername(username);
     }
 
@@ -43,10 +44,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean update(User user) {
-        User exist = findByUsername(user.getUsername());
+        User exist = userRepository.findOne(user.getId());
+        User existByUserName = findByUsername(user.getUsername());
+        if(existByUserName!=null && existByUserName.getId()!=exist.getId()){return false;}
         if(exist!= null){
             if(user.getPassword()==null){
-                user.setPassword(bCryptPasswordEncoder.encode(exist.getPassword()));
+                user.setPassword(exist.getPassword());
+            }else{
+                    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             }
             user.setId(exist.getId());
             userRepository.save(user);

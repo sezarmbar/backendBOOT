@@ -6,18 +6,20 @@
       <h2>Benutzer</h2>
     </md-card-title>
 
-    <form #createUserForm="ngForm">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" #createUserForm="ngForm">
       <table class="full-width" cellspacing="0">
         <tr>
           <td>
             <md-input-container class="full-width">
-              <input mdInput value="{{user.firstname}}" placeholder="Vor Name">
+              <input mdInput formControlName="firstname" placeholder="Vor Name">
             </md-input-container>
           </td>
           <td>
             <md-input-container class="full-width">
-              <input mdInput value="{{user.lastname}}" placeholder="Nach Name">
+              <input mdInput formControlName="lastname" placeholder="Nach Name">
             </md-input-container>
+          </td>
+          <td class="width-15">
           </td>
         </tr>
       </table>
@@ -26,13 +28,17 @@
           <tr>
             <td>
               <md-input-container class="full-width">
-                <input mdInput value="{{user.username}}" disabled placeholder="Benutzer">
+                <input mdInput formControlName="username" disabled placeholder="Benutzer">
+                <md-hint align="start" style="color:brown" *ngIf="_anotherUsername"><strong>Wählen Sie einen aktuellen Benutzer </strong> </md-hint>
               </md-input-container>
             </td>
             <td>
               <md-input-container class="full-width">
-                <input mdInput value="{{user.password}}" placeholder="Passwort" type="password">
+                <input mdInput formControlName="password" placeholder="Passwort" type="password">
               </md-input-container>
+            </td>
+            <td class="width-15">
+
             </td>
           </tr>
         </table>
@@ -41,7 +47,7 @@
             <tr>
               <td>
                 <md-input-container class="full-width">
-                  <input mdInput value="{{user.email}}" placeholder="Email">
+                  <input mdInput formControlName="email" placeholder="Email">
                 </md-input-container>
               </td>
             </tr>
@@ -53,7 +59,7 @@
                   <div *ngIf="Active.checked">Aktiv</div>
                   <div *ngIf="!Active.checked">Deaktiviert</div>
                   <p>
-                    <md-slide-toggle name="active" [(ngModel)]="user.enabled" #Active>
+                    <md-slide-toggle formControlName="active" #Active>
 
                     </md-slide-toggle>
                 </td>
@@ -61,7 +67,7 @@
                   <div *ngIf="Admin.checked">Admin</div>
                   <div *ngIf="!Admin.checked">User</div>
                   <p>
-                    <md-slide-toggle name="admin" [(ngModel)]="admin" #Admin></md-slide-toggle>
+                    <md-slide-toggle formControlName="isadmin" #Admin></md-slide-toggle>
                 </td>
               </tr>
             </table>
@@ -69,7 +75,7 @@
               <button class="full-width" type="submit" [disabled]="!createUserForm.form.valid" md-raised-button color="primary">Aktualisieren</button>
     </form>
   </md-card>
-
+  
   <md-card *ngIf="!admin">
 
     <md-card-title>

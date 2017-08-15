@@ -39,12 +39,7 @@ export class CreateUsersComponent implements OnInit {
       this.getAllUsers();
     }, (errorCode) => console.log(errorCode));
   }
-  updateUser(user: User){
-    const userString = JSON.stringify(user);
-    return this.apiService.updateUser(this.config.user_update_url,userString).subscribe((success)=>{
-      this.getAllUsers();
-    },(errorCode)=> console.log(errorCode));
-  }
+
   getAllUsers() {
     this.apiService.getAllUsers(this.config.users_url).subscribe((data) => {
       this.allUsers = data;
@@ -90,7 +85,12 @@ export class CreateUsersComponent implements OnInit {
     this.apiService.deleteUserRating(this.config.user_rating_url, userRating)
       .subscribe(() => this.getUserRatings(userRating.userName), (error) => console.log(error));
   }
-
+  updateUser(user: User){
+    const userString = JSON.stringify(user);
+    return this.apiService.updateUser(this.config.user_update_url,userString).subscribe((success)=>{
+      this.getAllUsers(); this.editUser.succesMessage('Benutzer' + user.username +' '+ 'aktualisiert');this.editUser.anotherUsernameFalse()
+    },(errorCode)=> this.editUser.anotherUsername());
+  }
 
 }
 export class UserRating {

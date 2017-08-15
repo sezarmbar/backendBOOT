@@ -11,7 +11,7 @@
       </md-toolbar>
       <md-list>
         <md-list-item>
-           <a class="button-rating" (click)="showCreateForm =!showCreateForm" md-raised-button color="primary">
+           <a class="button-rating"  *ngIf="!showCreateForm" (click)="showCreateForm =!showCreateForm" md-raised-button color="primary">
               Benutzer erstellen
           </a>
         </md-list-item>
@@ -30,6 +30,6 @@
   <div class="create-user-scrolling-content">
     <user-create-form *ngIf="showCreateForm" (onDatePicked)="createUser($event)"> </user-create-form>
     <edit-user [user]="curentUser" [allRatings]="ratingsArray" [selfRatings]="userSelfRatings" 
-              (userRating)="putUserRating($event)" (delteUserRating)="delteUserRating($event)"  *ngIf="!showCreateForm"> </edit-user>
+              (userRating)="putUserRating($event)" (onDatePicked)="updateUser($event)" (delteUserRating)="delteUserRating($event)"  *ngIf="!showCreateForm"> </edit-user>
   </div>
 </md-sidenav-container>
