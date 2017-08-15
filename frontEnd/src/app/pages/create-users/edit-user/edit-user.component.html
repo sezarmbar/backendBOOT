@@ -19,8 +19,6 @@
               <input mdInput value="{{user.lastname}}" placeholder="Nach Name">
             </md-input-container>
           </td>
-          <td class="width-15">
-          </td>
         </tr>
       </table>
       <p>
@@ -33,11 +31,8 @@
             </td>
             <td>
               <md-input-container class="full-width">
-                <input mdInput value="{{user.password}}" placeholder="Passwort" [type]="showPassword.checked ? 'text' : 'password'">
+                <input mdInput value="{{user.password}}" placeholder="Passwort" type="password">
               </md-input-container>
-            </td>
-            <td class="width-15">
-              <md-checkbox #showPassword></md-checkbox>
             </td>
           </tr>
         </table>

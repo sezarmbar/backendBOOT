@@ -26,7 +26,7 @@ export class ConfigService {
 
     private _users_rating_delete_all_url = this._api_url + '/deleteByUserName';
 
-
+    private _user_update_url = '/update';
     get api_url(): string {
         return this._api_url;
     }
@@ -66,4 +66,7 @@ export class ConfigService {
         return this._users_rating_delete_all_url;
     }
 
+    get user_update_url(){
+        return this._user_update_url;
+    }
 }

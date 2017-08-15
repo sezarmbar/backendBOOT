@@ -38,8 +38,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
   isAdmin() {
     this.admin = this.getRoles();
   }
-
-
   getRoles(): boolean {
     let isAdmin = false;
     const roles: Array<Authority> = this.user.authorities as Array<Authority>;
@@ -49,7 +47,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
     }
     return isAdmin;
   }
-
   filterStates(val: string) {
     return val ? this.allRatings.filter(s => s.toLowerCase().indexOf(val.toLowerCase()) === 0)
       : this.allRatings;
@@ -61,7 +58,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
       this.addUserRating(userRating);
     }
   }
-
   addUserRating(userRating) {
     const userRatings: Array<UserRating> = this.selfRatings as Array<UserRating>;
     // tslint:disable-next-line:arrow-return-shorthand
@@ -70,9 +66,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
       this.userRating.emit(userRating);
     }
   }
-
   dleteUserRating(userRating: UserRating) {
     this.delteUserRating.emit(userRating);
+  }
+  updateUser(user){
+    this.onDatePicked.emit(user);
   }
 }
 

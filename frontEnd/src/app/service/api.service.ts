@@ -109,6 +109,16 @@ export class ApiService2 {
     return this.post(path, body, options);
   }
 
+  updateUser(path:string, user) {
+    const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    const options = this.getOptions();
+    return this
+      .http
+      .post(path, user, options)
+      .map(success => success.status)
+      .catch(this.handleError);
+  }
+
   getUserRating(path: string, userName: string): Observable<any> {
     const cpHeaders = this.getcpHeaders();
     const cpParams = new URLSearchParams();

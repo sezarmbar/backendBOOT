@@ -34,11 +34,16 @@ export class CreateUsersComponent implements OnInit {
 
 
   createUser(user: User) {
-
     const user1 = JSON.stringify(user);
     return this.apiService.createUser(user1).subscribe((success) => {
       this.getAllUsers();
     }, (errorCode) => console.log(errorCode));
+  }
+  updateUser(user: User){
+    const userString = JSON.stringify(user);
+    return this.apiService.updateUser(this.config.user_update_url,userString).subscribe((success)=>{
+      this.getAllUsers();
+    },(errorCode)=> console.log(errorCode));
   }
   getAllUsers() {
     this.apiService.getAllUsers(this.config.users_url).subscribe((data) => {
