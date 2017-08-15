@@ -18,6 +18,9 @@ public class UserRating {
         this.userName = userName;
     }
 
+    public UserRating() {
+    }
+
     public Long getId() {
         return id;
     }
