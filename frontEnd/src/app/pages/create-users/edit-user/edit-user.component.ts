@@ -35,6 +35,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
   active: FormControl;
   isadmin: FormControl;
   selectedValue;
+  administrator = 'admin';
+  // isAdministrator = false;
+
   ngOnInit() {
     this.createForm();
   }
@@ -79,6 +82,19 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.admin = this.getRoles();
     this._anotherUsername = false;
     this.preUpdateUser();
+    if (this.user.username === this.administrator) {
+      this.form.get('firstname').disable();
+      this.form.get('lastname').disable();
+      this.form.get('username').disable();
+      this.form.get('active').disable();
+      this.form.get('isadmin').disable();
+    } else {
+      this.form.get('firstname').enable();
+      this.form.get('lastname').enable();
+      this.form.get('username').enable();
+      this.form.get('active').enable();
+      this.form.get('isadmin').enable();
+    }
   }
   anotherUsername() {
     this._anotherUsername = true;
