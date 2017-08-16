@@ -49,7 +49,7 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public List<Rating> findAll() {
-        return ratingRepository.findAll();
+        return (List<Rating>) ratingRepository.findAll();
     }
 
     @Override
@@ -57,6 +57,11 @@ public class RatingServiceImpl implements RatingService {
 
         reviewService.deleteReviewByRating(rating);
         ratingRepository.delete(rating);
+    }
+
+    @Override
+    public List<Rating> findthis(List<String> listNameOfRat) {
+        return ratingRepository.findthis(listNameOfRat);
     }
 
     @Override

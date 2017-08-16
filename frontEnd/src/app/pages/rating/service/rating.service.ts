@@ -26,13 +26,15 @@ export class RatingService {
 
   logout_url = this._auth_url + '/logout';
 
-  constructor(private http: Http,private apiService:ApiService2) { }
+  _rating_by_userName = '/api/ratingByUserName';
+
+  constructor(private http: Http, private apiService: ApiService2) { }
 
   // Review --------
 
   getAllReviews(rating: Rating): Observable<Review[]> {
     const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    const options =this.apiService.getOptions();
+    const options = this.apiService.getOptions();
 
     return this
       .http
@@ -43,8 +45,8 @@ export class RatingService {
   }
 
   putReview(review: Review): Observable<number> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let options = this.apiService.getOptions();
+    const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    const options = this.apiService.getOptions();
     return this
       .http
       .post(this.review, review, options)
@@ -55,20 +57,31 @@ export class RatingService {
   // Rating ------------
 
   getAllRatings(): Observable<Rating[]> {
-    let options = this.apiService.getOptions();
+    const options = this.apiService.getOptions();
     return this
       .http
-      .get(this.allrating,options)
+      .get(this.allrating, options)
       .map(this.extractData)
       .catch(this.handleError);
+  }
 
+  getAllRatingsByUsername(username: string): Observable<Rating[]> {
+    const cpHeaders = this.apiService.getcpHeaders();
+    const cpParams = new URLSearchParams();
+    cpParams.set('username', username);
+    const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+    return this
+      .http
+      .get(this._rating_by_userName, options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   getRatingById(id: string): Observable<Rating> {
-    let cpHeaders = this.apiService.getcpHeaders();
-    let cpParams = new URLSearchParams();
+    const cpHeaders = this.apiService.getcpHeaders();
+    const cpParams = new URLSearchParams();
     cpParams.set('id', id);
-    let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+    const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
     return this
       .http
       .get(this.rating, options)
@@ -77,11 +90,11 @@ export class RatingService {
   }
 
   getRatingByName(name: string): Observable<Rating> {
-    let cpHeaders = this.apiService.getcpHeaders();
+    const cpHeaders = this.apiService.getcpHeaders();
 
-    let cpParams = new URLSearchParams();
+    const cpParams = new URLSearchParams();
     cpParams.set('name', name);
-    let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+    const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
     return this
       .http
       .get(this.ratingByName, options)
@@ -90,8 +103,8 @@ export class RatingService {
   }
 
   putRating(rating: Rating): Observable<number> {
-    let cpHeaders = this.apiService.getcpHeaders();
-    let options = new RequestOptions({ headers: cpHeaders });
+    const cpHeaders = this.apiService.getcpHeaders();
+    const options = new RequestOptions({ headers: cpHeaders });
     return this
       .http
       .post(this.rating, rating, options)
@@ -99,8 +112,8 @@ export class RatingService {
       .catch(this.handleError);
   }
   createRating(rating: Rating): Observable<number> {
-    let cpHeaders = this.apiService.getcpHeaders();
-    let options = new RequestOptions({ headers: cpHeaders });
+    const cpHeaders = this.apiService.getcpHeaders();
+    const options = new RequestOptions({ headers: cpHeaders });
     return this
       .http
       .post(this.creattRating, rating, options)
@@ -116,8 +129,8 @@ export class RatingService {
   //   .catch(this.handleError); }
 
   deleteRatingByRating(rating: Rating): Observable<number> {
-    let cpHeaders = this.apiService.getcpHeaders();
-    let options = new RequestOptions({ headers: cpHeaders });
+    const cpHeaders = this.apiService.getcpHeaders();
+    const options = new RequestOptions({ headers: cpHeaders });
     return this
       .http
       .post(this.deleteRating, rating, options)
@@ -129,7 +142,7 @@ export class RatingService {
   // 'application/x-www-form-urlencoded');   return
   // this.apiService.post(this.login_url, body, headers); } Utils -------------
   private extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body;
   }
 

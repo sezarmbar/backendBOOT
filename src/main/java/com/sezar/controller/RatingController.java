@@ -2,6 +2,7 @@ package com.sezar.controller;
 
 import com.sezar.model.Rating;
 import com.sezar.service.RatingService;
+import com.sezar.service.UserRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,8 @@ public class RatingController {
     @Autowired
     RatingService ratingService;
 
+    @Autowired
+    UserRatingService userRatingService;
 
     @GetMapping("all-rating")
     public ResponseEntity<List<Rating>> getAllArticles() {
@@ -42,6 +45,13 @@ public class RatingController {
     public ResponseEntity<Rating> getArticleByName(@RequestParam String name, Model model) {
         Rating rating = ratingService.findByNameOfRat(name);
         return new ResponseEntity<Rating>(rating, HttpStatus.OK);
+    }
+
+    @GetMapping("ratingByUserName")
+    public ResponseEntity<List<Rating>> getRatingByUsername(@RequestParam String username) {
+        List<String> ratingNames = userRatingService.findRatingNames(username);
+        List<Rating> rating = ratingService.findthis(ratingNames);
+        return new ResponseEntity<>(rating, HttpStatus.OK);
     }
 
 

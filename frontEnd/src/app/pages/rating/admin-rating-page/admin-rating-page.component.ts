@@ -58,12 +58,22 @@ export class AdminRatingPageComponent implements OnInit {
       }, (errorCode) => this.statusCode = errorCode);
 
   }
-  
+
   getAllRating() {
     this.preProcessConfigurations();
     this
       .ratingService
       .getAllRatings()
+      .subscribe((data) => {
+        this.allRating = data;
+        this.requestProcessing = false;
+      }, (errorCode) => this.statusCode = errorCode);
+  }
+  getAllRatingsByUsername() {
+    this.preProcessConfigurations();
+    this
+      .ratingService
+      .getAllRatingsByUsername('sezar')
       .subscribe((data) => {
         this.allRating = data;
         this.requestProcessing = false;
@@ -122,7 +132,7 @@ export class AdminRatingPageComponent implements OnInit {
   }
   ovservSubscribe() {
     let waitingTime = this.rating.waitingTime;
-    if(this.rating.waitingTime === 0 ){
+    if (this.rating.waitingTime === 0) {
       waitingTime = 0.1;
     }
     this.observSubscribe = Observable.interval(waitingTime * 60000).subscribe(x => {

@@ -36,4 +36,9 @@ public class UserRatingServiceImpl implements UserRatingService {
         userRatingRepository.deleteByUserName(userName);
         return true;
     }
+
+    @Override
+    public List<String> findRatingNames(String userName) {
+        return userRatingRepository.findRatingNames(userName);
+    }
 }
