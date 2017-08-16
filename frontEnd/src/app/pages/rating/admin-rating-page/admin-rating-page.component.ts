@@ -1,3 +1,4 @@
+import { CreateUserPage } from './../../../guard/loginAdminUser.guard';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { OnInit, Component, ViewChild, ElementRef } from '@angular/core';
 import { Rating, Review, RatingService } from '../';
@@ -9,28 +10,28 @@ import { Observable } from 'rxjs/Rx';
 })
 export class AdminRatingPageComponent implements OnInit {
 
-  showRatingInfo: boolean = false;
+  showRatingInfo = false;
   statusCode: number;
   rating: Rating = new Rating(null, null, null, null, null, null, null, null, null, null, null);
   id: String = '1';
   requestProcessing = false;
   allRating: Rating[];
-  nameRating: string = 'new One';
-  description: string = 'description for theis';
-  waitingTime: number = 50;
+  nameRating = 'new One';
+  description = 'description for theis';
+  waitingTime = 50;
   allReviwsForRating: Review[];
   chartDate: any;
   oldRatingId;
 
-  nameError: boolean = false;
+  nameError = false;
   @ViewChild('setReviewData') ReviewData: RatingInfoComponent;
-  observ: boolean = false;
+  observ = false;
   observSubscribe: any;
-  constructor(private ratingService: RatingService, private route: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private ratingService: RatingService, private route: Router, private activatedRoute: ActivatedRoute,
+    private createUserPage: CreateUserPage) { }
 
   ngOnInit() {
     this.getAllRating();
-
   }
 
   readIdFromUrl() {
@@ -60,6 +61,14 @@ export class AdminRatingPageComponent implements OnInit {
   }
 
   getAllRating() {
+    if (this.createUserPage.active) {
+      this.getAllRatings();
+    } else {
+      this.getAllRatingsByUsername();
+    }
+  }
+
+  getAllRatings() {
     this.preProcessConfigurations();
     this
       .ratingService
@@ -73,7 +82,7 @@ export class AdminRatingPageComponent implements OnInit {
     this.preProcessConfigurations();
     this
       .ratingService
-      .getAllRatingsByUsername('sezar')
+      .getAllRatingsByUsername(this.createUserPage.username)
       .subscribe((data) => {
         this.allRating = data;
         this.requestProcessing = false;

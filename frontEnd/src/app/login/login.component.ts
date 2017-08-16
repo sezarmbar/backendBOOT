@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
         localStorage.setItem(this.TOKEN_KEY, data.token);
         this.setUserRollesUI(data.token);
-        this.userService.getMyInfo().subscribe();
+        this.userService.getMyInfo().subscribe((res) => this.createUserPage.username = res.username);
       },
       error => {
         this.submitted = false;
@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit {
     const roles = decodedTokenPayloadOld.roles;
 
     const role = roles.find((role: any) => { return role.authority === 'ROLE_ADMIN'; });
-    if (role != undefined) {
+    if (role !== undefined) {
       isAdmin = true;
     }
     return isAdmin;

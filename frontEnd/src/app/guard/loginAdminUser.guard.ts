@@ -34,7 +34,8 @@ export class AdminPage implements CanActivate {
 @Injectable()
 export class CreateUserPage implements CanActivate {
   active = false;
-  constructor( private userService: UserService) { }
+  username = '';
+  constructor(private userService: UserService) { }
 
   canActivate(): boolean {
     if (this.userService.currentUser) {
