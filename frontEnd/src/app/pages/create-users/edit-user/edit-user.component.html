@@ -34,11 +34,11 @@
             </td>
             <td>
               <md-input-container class="full-width">
-                <input mdInput formControlName="password" placeholder="Passwort" type="password">
+                <input mdInput formControlName="password" placeholder="Passwort" [type]="showPassword.checked ? 'text' : 'password'">
               </md-input-container>
             </td>
             <td class="width-15">
-
+               <md-checkbox #showPassword></md-checkbox>
             </td>
           </tr>
         </table>
