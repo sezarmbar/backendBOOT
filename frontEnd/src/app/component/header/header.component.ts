@@ -12,12 +12,12 @@ import { CreateUserPage } from '../../guard';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  show = true;
   constructor(
     private userService: UserService,
     private authService: AuthService,
     private router: Router,
-    private createUserPage:CreateUserPage
+    private createUserPage: CreateUserPage
   ) { }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout()
     this.userService.currentUser = null;
-      this.router.navigate(['/login']);
+    this.router.navigate(['/login']);
     // .subscribe(res => {
     //   this.userService.currentUser = null;
     //   this.router.navigate(['/login']);
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
     return !!this.userService.currentUser;
   }
 
-  isSuperUser(){
+  isSuperUser() {
     return this.createUserPage.active;
   }
   userName() {
