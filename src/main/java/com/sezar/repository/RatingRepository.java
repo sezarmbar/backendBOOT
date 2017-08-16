@@ -16,7 +16,7 @@ import java.util.List;
 public interface RatingRepository extends CrudRepository<Rating, Long> {
     Rating findByNameOfRat(String nameOfRat);
 
-    @Query("SELECT r FROM Rating r WHERE  r.nameOfRat in (:listNameOfRat)")
+    @Query("SELECT r FROM Rating r WHERE  r.nameOfRat in :listNameOfRat")
     List<Rating> findthis(@Param("listNameOfRat")List<String> listNameOfRat);
 
 }

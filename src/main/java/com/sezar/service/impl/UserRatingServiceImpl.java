@@ -39,6 +39,8 @@ public class UserRatingServiceImpl implements UserRatingService {
 
     @Override
     public List<String> findRatingNames(String userName) {
-        return userRatingRepository.findRatingNames(userName);
+        if(userRatingRepository.findRatingNames(userName)!= null)
+            return userRatingRepository.findRatingNames(userName);
+        return null;
     }
 }

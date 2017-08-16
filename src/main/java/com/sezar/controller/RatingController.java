@@ -3,6 +3,8 @@ package com.sezar.controller;
 import com.sezar.model.Rating;
 import com.sezar.service.RatingService;
 import com.sezar.service.UserRatingService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("api")
 public class RatingController {
-
+    private final Log logger = LogFactory.getLog(this.getClass());
     @Autowired
     RatingService ratingService;
 
@@ -50,8 +52,11 @@ public class RatingController {
     @GetMapping("ratingByUserName")
     public ResponseEntity<List<Rating>> getRatingByUsername(@RequestParam String username) {
         List<String> ratingNames = userRatingService.findRatingNames(username);
+        if(ratingNames.size()== 0 ){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         List<Rating> rating = ratingService.findthis(ratingNames);
-        return new ResponseEntity<>(rating, HttpStatus.OK);
+        return new ResponseEntity<>(rating,HttpStatus.OK);
     }
 
 
