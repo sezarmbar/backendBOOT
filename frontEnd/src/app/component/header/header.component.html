@@ -5,23 +5,22 @@
         <span>Bewertung Application</span>
       </button>
 
-       <button md-button md-ripple (click)="show=!show">
+      <button md-button md-ripple (click)="show=!show">
         Hide
-       </button>
-
+      </button>
       <div class="right">
         <button routerLink="/creatUsers" *ngIf="isSuperUser() && hasSignedIn()" md-button md-ripple>
-      <span> Benutzer erstellen</span>
-    </button>
+          Benutzer erstellen
+        </button>
         <button *ngIf="!hasSignedIn()" routerLink="/login" md-button md-ripple>
-      <span>Login</span>
-    </button>
+          Login
+        </button>
         <button class="greeting-button" routerLink="/admin" *ngIf="hasSignedIn()" md-button md-ripple>
-      <span>{{userName()}}</span>
-    </button>
+          {{userName()}}
+        </button>
         <button *ngIf="hasSignedIn()" (click)="logout()" md-button md-ripple>
-      <span>Logout</span>
-    </button>
+          Logout
+        </button>
       </div>
     </md-toolbar>
   </div>
