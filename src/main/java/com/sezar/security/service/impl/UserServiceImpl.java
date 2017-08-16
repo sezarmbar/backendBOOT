@@ -5,6 +5,8 @@ import com.sezar.model.security.User;
 import com.sezar.security.repository.AuthorityRepository;
 import com.sezar.security.repository.UserRepository;
 import com.sezar.security.service.UserService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-
+    private final Log logger = LogFactory.getLog(this.getClass());
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -45,10 +47,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean update(User user) {
         User exist = userRepository.findOne(user.getId());
-        User existByUserName = findByUsername(user.getUsername());
-        if(existByUserName!=null && existByUserName.getId()!=exist.getId()){return false;}
-        if(exist!= null){
-            if(user.getPassword()==null){
+        logger.error(exist.toString());
+               if(user.getPassword()==null){
                 user.setPassword(exist.getPassword());
             }else{
                     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -56,8 +56,6 @@ public class UserServiceImpl implements UserService {
             user.setId(exist.getId());
             userRepository.save(user);
             return true;
-        }
-        return false;
     }
 
     public boolean isExist(User user){

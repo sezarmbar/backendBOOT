@@ -91,7 +91,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     } else {
       this.form.get('firstname').enable();
       this.form.get('lastname').enable();
-      this.form.get('username').enable();
+      this.form.get('username').disable();
       this.form.get('active').enable();
       this.form.get('isadmin').enable();
     }
@@ -156,7 +156,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
       this.authorities.push(ROLE_ADMIN);
     }
 
-    this.userToUpdate = new User(this.user.id, this.FormDataValue.email, this.FormDataValue.username, this.FormDataValue.password,
+    this.userToUpdate = new User(this.user.id, this.FormDataValue.email, this.user.username, this.FormDataValue.password,
       this.FormDataValue.firstname, this.FormDataValue.lastname, this.authorities, this.FormDataValue.active);
     this.updateUser();
   }

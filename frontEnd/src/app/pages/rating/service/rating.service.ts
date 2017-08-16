@@ -1,3 +1,4 @@
+import { ConfigService } from './../../../service/config.service';
 import { ApiService2 } from './../../../service/api.service';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
@@ -6,29 +7,9 @@ import { Observable } from 'rxjs';
 import { Rating, Review } from '../';
 @Injectable()
 export class RatingService {
-  adress = '';
-  // adress = 'http://localhost:8080/rating-app' adress = '/rating-app'
 
-  creattRating = this.adress + '/api/create-rating';
-  rating = this.adress + '/api/rating';
-  deleteRating = this.adress + '/api/delete-rating';
 
-  ratingByName = this.adress + '/api/ratingName';
-  allrating = this.adress + '/api/all-rating';
-
-  allReview = this.adress + '/api/all-reviews';
-
-  review = this.adress + '/api/review';
-
-  private _auth_url = '/auth';
-
-  login_url = this._auth_url + '/login';
-
-  logout_url = this._auth_url + '/logout';
-
-  _rating_by_userName = '/api/ratingByUserName';
-
-  constructor(private http: Http, private apiService: ApiService2) { }
+  constructor(private http: Http, private apiService: ApiService2, private config: ConfigService) { }
 
   // Review --------
 
@@ -38,7 +19,7 @@ export class RatingService {
 
     return this
       .http
-      .post(this.allReview, rating, options)
+      .post(this.config.all_review_url, rating, options)
       .map(this.extractData)
       .catch(this.handleError);
 
@@ -49,7 +30,7 @@ export class RatingService {
     const options = this.apiService.getOptions();
     return this
       .http
-      .post(this.review, review, options)
+      .post(this.config.review_url, review, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -60,7 +41,7 @@ export class RatingService {
     const options = this.apiService.getOptions();
     return this
       .http
-      .get(this.allrating, options)
+      .get(this.config.all_rating_url, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -72,7 +53,7 @@ export class RatingService {
     const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
     return this
       .http
-      .get(this._rating_by_userName, options)
+      .get(this.config.rating_by_userName_url, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -84,7 +65,7 @@ export class RatingService {
     const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
     return this
       .http
-      .get(this.rating, options)
+      .get(this.config.rating_url, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -97,7 +78,7 @@ export class RatingService {
     const options = new RequestOptions({ headers: cpHeaders, params: cpParams });
     return this
       .http
-      .get(this.ratingByName, options)
+      .get(this.config.rating_by_name_url, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -107,7 +88,7 @@ export class RatingService {
     const options = new RequestOptions({ headers: cpHeaders });
     return this
       .http
-      .post(this.rating, rating, options)
+      .post(this.config.rating_url, rating, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -116,7 +97,7 @@ export class RatingService {
     const options = new RequestOptions({ headers: cpHeaders });
     return this
       .http
-      .post(this.creattRating, rating, options)
+      .post(this.config.creatt_Rating_url, rating, options)
       .map(success => success.status)
       .catch(this.handleError);
   }
@@ -133,7 +114,7 @@ export class RatingService {
     const options = new RequestOptions({ headers: cpHeaders });
     return this
       .http
-      .post(this.deleteRating, rating, options)
+      .post(this.config.delete_rating_url, rating, options)
       .map(success => success.status)
       .catch(this.handleError);
   }

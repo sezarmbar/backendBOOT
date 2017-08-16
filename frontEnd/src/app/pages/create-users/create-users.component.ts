@@ -35,7 +35,7 @@ export class CreateUsersComponent implements OnInit {
 
   createUser(user: User) {
     const user1 = JSON.stringify(user);
-    return this.apiService.createUser(user1).subscribe((success) => {
+    return this.apiService.createUser(this.config.registration_url, user1).subscribe((success) => {
       this.getAllUsers();
     }, (errorCode) => console.log(errorCode));
   }

@@ -130,4 +130,19 @@ public class User {
     public void setLastPasswordResetDate(Date lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", lastPasswordResetDate=" + lastPasswordResetDate +
+                ", authorities=" + authorities +
+                '}';
+    }
 }

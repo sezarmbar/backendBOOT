@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("api")
 public class RatingController {
-    private final Log logger = LogFactory.getLog(this.getClass());
+
     @Autowired
     RatingService ratingService;
 

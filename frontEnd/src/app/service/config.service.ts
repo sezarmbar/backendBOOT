@@ -4,29 +4,76 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class ConfigService {
 
+    // private _api_url = '/api';
+    // private adress = '';
+
+    private adress = '/rating-app';
     private _api_url = '/api';
 
-    private _auth_url = '';
 
-    private _user_url = this._api_url + '/user';
+    private _user_url = this.adress + '/user';
 
-    private _refresh_token_url = this._auth_url + '/refresh';
+    private _refresh_token_url = this.adress + '/refresh';
 
-    private _login_url = this._auth_url + '/auth';
+    private _login_url = this.adress + '/auth';
 
-    private _logout_url = this._auth_url + '/logout';
+    private _logout_url = this.adress + '/logout';
 
-    private _whoami_url = '/user';
+    private _whoami_url = this.adress + '/user';
 
-    private _users_url = '/all-User';
+    private _users_url = this.adress + '/all-User';
 
-    private _foo_url = this._api_url + '/foo';
+    private _registration_url = this.adress + '/registration';
 
-    private _users_rating_url = this._api_url + '/userRating';
+    private _users_rating_url = this.adress + this._api_url + '/userRating';
 
-    private _users_rating_delete_all_url = this._api_url + '/deleteByUserName';
+    private _users_rating_delete_all_url = this.adress + this._api_url + '/deleteByUserName';
 
-    private _user_update_url = '/update';
+    private _user_update_url = this.adress + '/update';
+
+    private _creatt_Rating_url = this.adress + this._api_url + '/create-rating';
+
+    private _rating_url = this.adress + this._api_url + '/rating';
+
+    private _delete_rating_url = this.adress + this._api_url + '/delete-rating';
+
+    private _rating_by_name_url = this.adress + this._api_url + '/ratingName';
+
+    private _all_rating_url = this.adress + this._api_url + '/all-rating';
+
+    private _all_review_url = this.adress + this._api_url + '/all-reviews';
+
+    private _review_url = this.adress + this._api_url + '/review';
+
+    private _rating_by_userName_url = this.adress + this._api_url + '/ratingByUserName';
+
+
+    get rating_by_userName_url() {
+        return this._rating_by_userName_url;
+    }
+    get review_url() {
+        return this._review_url;
+    }
+    get all_review_url() {
+        return this._all_review_url;
+    }
+    get rating_by_name_url() {
+        return this._rating_by_name_url;
+    }
+    get all_rating_url() {
+        return this._all_rating_url;
+    }
+    get delete_rating_url() {
+        return this._delete_rating_url;
+    }
+
+    get rating_url() {
+        return this._rating_url;
+    }
+    get creatt_Rating_url() {
+        return this._creatt_Rating_url;
+    }
+
     get api_url(): string {
         return this._api_url;
     }
@@ -54,19 +101,19 @@ export class ConfigService {
         return this._logout_url;
     }
 
-    get foo_url(): string {
-        return this._foo_url;
+    get registration_url(): string {
+        return this._registration_url;
     }
 
-    get user_rating_url(){
+    get user_rating_url() {
         return this._users_rating_url;
     }
 
-    get users_rating_delete_all_url(){
+    get users_rating_delete_all_url() {
         return this._users_rating_delete_all_url;
     }
 
-    get user_update_url(){
+    get user_update_url() {
         return this._user_update_url;
     }
 }

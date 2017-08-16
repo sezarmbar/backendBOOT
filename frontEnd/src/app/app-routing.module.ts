@@ -1,8 +1,11 @@
+import { CreateRatingComponent } from './pages/rating/admin-rating-page/create-rating/create-rating.component';
+import { AdminRatingPageComponent } from './pages/rating/admin-rating-page/admin-rating-page.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { RatingPageComponent } from './pages/rating/rating-page/rating-page.component';
 
-import { RatingPageComponent, CreateRatingComponent, AdminRatingPageComponent } from './pages/rating';
+
 
 import { ErrorPageComponent } from './pages/error-page';
 import { LoginComponent } from './login';

@@ -19,8 +19,8 @@ export class ApiService2 {
   }
 
   anonGet(path: string): Observable<any> {
-    const jtoken = localStorage.getItem(this.tokenName)
-    const cpHeaders = new Headers({ 'Content-Type': 'application/json', "Authorization": jtoken });
+    const jtoken = localStorage.getItem(this.tokenName);
+    const cpHeaders = new Headers({ 'Content-Type': 'application/json', 'Authorization': jtoken });
     return this.http.get(
       path,
       {
@@ -43,13 +43,13 @@ export class ApiService2 {
       .catch(this.checkAuth.bind(this));
   }
   // =========
-  getPotected(): Observable<any> {
-    return this.http.get(
-      '/protected', this.getOptions()
-    )
-      .map(this.extractData)
-      .catch(this.checkAuth.bind(this));
-  }
+  // getPotected(): Observable<any> {
+  //   return this.http.get(
+  //     '/protected', this.getOptions()
+  //   )
+  //     .map(this.extractData)
+  //     .catch(this.checkAuth.bind(this));
+  // }
   // --------------
   getOptions() {
     const jtoken = localStorage.getItem(this.tokenName);
@@ -66,7 +66,7 @@ export class ApiService2 {
   getUser(path: string): Observable<any> {
     const options = this.getOptions();
 
-    return this.http.get('/user', options)
+    return this.http.get(path, options)
       .map(this.extractData)
       .catch(this.checkAuth.bind(this));
   }
@@ -95,12 +95,12 @@ export class ApiService2 {
   }
 
 
-  createUser(user) {
+  createUser(path, user) {
     const cpHeaders = new Headers({ 'Content-Type': 'application/json' });
     const options = this.getOptions();
     return this
       .http
-      .post('/registration', user, options)
+      .post(path, user, options)
       .map(success => success.status)
       .catch(this.handleError);
   }

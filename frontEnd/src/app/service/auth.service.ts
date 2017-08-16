@@ -13,14 +13,14 @@ export class AuthService {
 
   login(user) {
     const body = `username=${user.username}&password=${user.password}`;
-    const bod = JSON.stringify(user)
+    const bod = JSON.stringify(user);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     return this.apiService.post(this.config.login_url, bod, headers);
   }
 
   logout() {
-    localStorage.removeItem("jwtToken");
+    localStorage.removeItem('jwtToken');
     // return this.apiService.post(this.config.logout_url, {});
   }
 

@@ -1,13 +1,13 @@
 {
-  "/api": {
+  "/rating-app/api": {
     "target": "http://localhost:8080",
     "secure": false
   },
-  "/auth": {
+  "/rating-app/auth": {
     "target": "http://localhost:8080",
     "secure": false
   },
-    "/": {
+    "/rating-app/": {
     "target": "http://localhost:8080",
     "secure": false
   }

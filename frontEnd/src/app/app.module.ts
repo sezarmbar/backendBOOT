@@ -1,3 +1,5 @@
+import { RatingPageComponent, DialogReviewEnter } from './pages/rating/rating-page/rating-page.component';
+import { AdminRatingPageComponent } from './pages/rating/admin-rating-page/admin-rating-page.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, ApplicationRef, APP_INITIALIZER } from '@angular/core';
@@ -50,7 +52,7 @@ import {
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk';
 // service
-import { RatingPageComponent, RatingService,  DialogReviewEnter, AdminRatingPageComponent } from './pages/rating';
+import { RatingService } from './pages/rating';
 import { CreateRatingComponent } from './pages/rating/admin-rating-page/create-rating/create-rating.component';
 import { RatingInfoComponent, RatingDeleteDialog } from './pages/rating/admin-rating-page/rating-info/rating-info.component';
 import { RatingChartComponent } from './pages/rating/admin-rating-page/rating-info/rating-chart/rating-chart.component';
@@ -59,7 +61,7 @@ import {
   ApiService2,
   AuthService,
   UserService,
-  
+
   ConfigService
 } from './service';
 import { LoginComponent } from './login';
@@ -67,7 +69,7 @@ import { LoginComponent } from './login';
 import { LoginGuard, AdminPage, CreateUserPage } from './guard';
 import { HomeComponent } from './home/home.component';
 export function initUserFactory(userService: UserService) {
-    return () => userService.initUser();
+  return () => userService.initUser();
 }
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CreateUsersComponent } from './pages/create-users';
@@ -93,11 +95,11 @@ import { EditUserComponent } from './pages/create-users/edit-user/edit-user.comp
     EditUserComponent
   ],
   entryComponents: [RatingDeleteDialog, DialogReviewEnter],
-  providers: [RatingService,  ApiService2, LoginGuard,CreateUserPage,
+  providers: [RatingService, ApiService2, LoginGuard, CreateUserPage,
     AuthService,
     AdminPage,
     UserService,
-    
+
     ConfigService,
     {
       'provide': APP_INITIALIZER,
