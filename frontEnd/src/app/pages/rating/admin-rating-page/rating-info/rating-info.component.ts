@@ -30,25 +30,29 @@ export class RatingInfoComponent implements OnInit ,OnDestroy {
   @Output() updateRating: EventEmitter<Rating> = new EventEmitter<Rating>();
   @Output() deletRatingId: EventEmitter<any> = new EventEmitter<any>();
   @Output() verfolgung: EventEmitter<boolean> = new EventEmitter<boolean>();
-  
 
 
-  checked: boolean = false;
-  showChart: boolean = true;
+  checked = false;
+  showChart= true;
   highlights = new Set<string>();
   displayedColumns = ['userName'];
   reviewDatabase;
-  EnablePdfButton:boolean = true;
+  EnablePdfButton= true;
   dataSource: ReviewDataSource | null;
   createdAt: string;
   waitingTime;
+  description;
   constructor(public dialog: MdDialog) { }
   outRatingStatus(data: boolean): void {
     this.rating.active = data;
     this.updateRating.emit(this.rating);
   }
-  waitingTimeOnChange(value){
+  waitingTimeOnChange(value) {
     this.rating.waitingTime = value;
+    this.updateRating.emit(this.rating);
+  }
+  descriptionOnChange(value) {
+    this.rating.description = value;
     this.updateRating.emit(this.rating);
   }
   deletRating(): void {

@@ -6,7 +6,7 @@
 }
 
 .title {
-  font-size: 70px;
+  font-size: 50px;
 }
 
 @media screen and (min-width: 681px) {
@@ -57,12 +57,12 @@ img {
   position: absolute;
   
   max-width: 19.5%;
-  height: auto;
+  // height: auto;
   // width: auto\\9;
 
   /* ie8 */
 }
 
 .index999{
-  z-index: 999;
+  z-index: 99;
 }

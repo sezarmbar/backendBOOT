@@ -1,7 +1,7 @@
 import { Router, ActivatedRoute, NavigationEnd, Params, ParamMap } from '@angular/router';
 import { OnInit, Component } from '@angular/core';
 import { RatingService } from '../service/rating.service';
-import { Rating, Review } from "../";
+import { Rating, Review } from '../';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Rx';
@@ -15,39 +15,40 @@ import {
 } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
 
-    
-@Component({ selector: 'app-rating-page', templateUrl: './rating-page.component.html', styleUrls: ['./rating-page.component.scss'],
-animations: [
-  
-          trigger('focusPanel', [
-              state('inactive', style({
-                  transform: 'rotateY(179.9deg)',
-                  // backgroundColor: '#eee'
-                  zIndex: 2
-                  
-              })),
-              state('active', style({
-                  transform: 'scale(3)',
-                  zIndex: 999,
-                  // backgroundColor: '#cfd8dc'
-              })),
-              transition('inactive => active', animate('400ms ease-in')),
-              transition('active => inactive', animate('400ms ease-out'))
-          ]),
-  
-          trigger('movePanel', [
-              
-              transition('void => *', [
-                  animate(600, keyframes([
-                      style({opacity: 0, transform: 'translateY(-200px)', offset: 0}),
-                      style({opacity: 1, transform: 'translateY(25px)', offset: .95}),
-                      style({opacity: 1, transform: 'translateY(0)', offset: 1}),
-                  ]))
-              ])
-  
-          ])
-  
-      ]
+
+@Component({
+  selector: 'app-rating-page', templateUrl: './rating-page.component.html', styleUrls: ['./rating-page.component.scss'],
+  animations: [
+
+    trigger('focusPanel', [
+      state('inactive', style({
+        transform: 'rotateY(179.9deg)',
+        // backgroundColor: '#eee'
+        zIndex: 2
+
+      })),
+      state('active', style({
+        transform: 'scale(3)',
+        zIndex: 999,
+        // backgroundColor: '#cfd8dc'
+      })),
+      transition('inactive => active', animate('400ms ease-in')),
+      transition('active => inactive', animate('400ms ease-out'))
+    ]),
+
+    trigger('movePanel', [
+
+      transition('void => *', [
+        animate(600, keyframes([
+          style({ opacity: 0, transform: 'translateY(-200px)', offset: 0 }),
+          style({ opacity: 1, transform: 'translateY(25px)', offset: .95 }),
+          style({ opacity: 1, transform: 'translateY(0)', offset: 1 }),
+        ]))
+      ])
+
+    ])
+
+  ]
 })
 export class RatingPageComponent implements OnInit {
   statusCode: number;
@@ -56,34 +57,26 @@ export class RatingPageComponent implements OnInit {
   currentNameRating: string;
   id: String;
   requestProcessing = false;
-  // allRating: Rating[];
-  isLoaded: boolean = false;
+  isLoaded = true;
   title: String = null;
   enteredReview: string = null;
-  isRatinActiveded: boolean = false;
+  isRatinActiveded = false;
   review: Review;
-  timeout: boolean = true;
-  timeoutReview: boolean = false;
+  timeout = true;
+  timeoutReview = false;
+  isDialogOpen = false;
+  empjiStatus: EmpjiStatus;
+  rat;
 
-  empjiStatus:EmpjiStatus;
-  
+  state = 'inactive';
 
-  state: string = 'inactive';
-    timeOut(rat){
-      this.toggleMove(rat);
-      setTimeout(() => {
-      this.toggleMove(rat);
-      this.openDialog();    
-      
-        },800);
-    }
-      toggleMove(rat) {
-          this.empjiStatus[rat] = (this.empjiStatus[rat] === 'inactive' ? 'active' : 'inactive');
-      }
+  toggleMove(rat) {
+    this.empjiStatus[rat] = (this.empjiStatus[rat] === 'inactive' ? 'active' : 'inactive');
+  }
 
   constructor(public dialog: MdDialog, private ratingService: RatingService,
-              private toastr: ToastrService,
-              private router: Router, private activatedRoute: ActivatedRoute) {
+    private toastr: ToastrService,
+    private router: Router, private activatedRoute: ActivatedRoute) {
 
 
     router.events.subscribe((val: any) => {
@@ -95,9 +88,9 @@ export class RatingPageComponent implements OnInit {
 
   ngOnInit() {
     this.getURL();
-    this.empjiStatus = new EmpjiStatus('inactive','inactive','inactive','inactive','inactive');
+    this.empjiStatus = new EmpjiStatus('inactive', 'inactive', 'inactive', 'inactive', 'inactive');
     this.ratingObserve = Observable.interval(1000 * 60).subscribe(x => {
-      this.getRatingByName(this.currentNameRating)
+      this.getRatingByName(this.currentNameRating);
     });
     //          or
     // this.readIdFromUrl()
@@ -115,15 +108,17 @@ export class RatingPageComponent implements OnInit {
 
   openDialog() {
     if (this.timeoutReview) {
-      let dialogRef = this
+      this.toggleMove(this.rat);
+      const dialogRef = this
         .dialog
         .open(DialogReviewEnter);
       dialogRef
         .afterClosed()
         .subscribe(result => {
+          this.toggleMove(this.rat);
           this.enteredReview = result;
-          if (this.enteredReview != null && this.enteredReview != "") {
-            this.addReview(this.enteredReview)
+          if (this.enteredReview != null && this.enteredReview !== '') {
+            this.addReview(this.enteredReview);
           } else {
             this.timeoutReview = false;
           }
@@ -132,13 +127,12 @@ export class RatingPageComponent implements OnInit {
   }
 
   readIdFromUrl() {
-    let name =
+    const name =
       this
         .activatedRoute
         .paramMap
         .switchMap((params: ParamMap) => params.get('id'));
     this.getRatingByName(name);
-    console.log(name);
     //  or this.activatedRoute.params.subscribe(   (params: Params) => {this.id =
     // params['id']; this.getRating(this.id); this.isLoaded = true},
     // (err)=>console.log(err))
@@ -146,23 +140,34 @@ export class RatingPageComponent implements OnInit {
 
   updateRating(event) {
     if (this.timeout) {
-      let rat = event.target.id;
+      const rat = event.target.id;
+      if (rat === 'bad' || rat === 'veryBad') {
+        this.timeoutReview = true;
+      }
       this.timeOut(rat);
       let tmpValue = this.rating[rat];
-      tmpValue = ((tmpValue) + 1)
-      this.rating[rat] = tmpValue
+      tmpValue = ((tmpValue) + 1);
+      this.rating[rat] = tmpValue;
       this.timeout = false;
       this.onAddOrUpdateRate(this.rating);
-      if (rat === "bad" || rat === "veryBad")
-        this.timeoutReview = true;
-        // this.openDialog();    
-        setTimeout(() => this.timeout = true, this.rating.waitingTime * 60000);
-    }else{
+      // this.openDialog()
+      setTimeout(() => this.timeout = true, this.rating.waitingTime * 60000);
+    } else {
 
-      
-        this.toastr.warning('!!!', 'warten bitte ');
+
+      this.toastr.warning('!!!', 'warten bitte ');
     }
 
+  }
+  timeOut(rat) {
+    this.rat = rat;
+    this.openDialog();
+    if (!this.timeoutReview) {
+      this.toggleMove(rat);
+      setTimeout(() => {
+        this.toggleMove(rat);
+      }, 800);
+    }
   }
 
   onAddOrUpdateRate(rating: Rating) {
@@ -203,7 +208,7 @@ export class RatingPageComponent implements OnInit {
   }
 
   addReview(enterdReview) {
-    let review = new Review(null, enterdReview, this.rating);
+    const review = new Review(null, enterdReview, this.rating);
     if (this.timeoutReview) {
       this.timeoutReview = false;
       this
@@ -234,11 +239,11 @@ export class DialogReviewEnter {
 
 }
 
-export class EmpjiStatus{
-  constructor( 
-  public veryBad: string,
-  public bad: string,
-  public normal: string,
-  public god: string,
-  public veryGod: string,){}
+export class EmpjiStatus {
+  constructor(
+    public veryBad: string,
+    public bad: string,
+    public normal: string,
+    public god: string,
+    public veryGod: string, ) { }
 }

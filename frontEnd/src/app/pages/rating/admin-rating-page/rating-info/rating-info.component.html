@@ -12,12 +12,21 @@
     <p></p>
     <table class="full-width" cellspacing="0">
       <tr>
-        <td>
-          <md-input-container>
-            <input mdInput (ngModel)="waitingTime" (change)="waitingTimeOnChange(inputWaitingTime.value)" #inputWaitingTime placeholder="Warten zeit" value="{{rating.waitingTime}}">
+        <td colspan="2" >
+          <md-input-container class="full-width">
+            <input mdInput    (ngModel)="description" (change)="descriptionOnChange(inputDescription.value)" 
+            #inputDescription placeholder="Beschreibung" value="{{rating.description}}">
           </md-input-container>
         </td>
-        <td style="width:50%">
+      </tr>
+      <tr>
+        <td>
+          <md-input-container class="full-width">
+            <input mdInput (ngModel)="waitingTime" (change)="waitingTimeOnChange(inputWaitingTime.value)" 
+            #inputWaitingTime placeholder="Warten zeit" value="{{rating.waitingTime}}">
+          </md-input-container>
+        </td>
+        <td style="width:30%">
           <div *ngIf="active.checked">Aktiv</div>
           <div *ngIf="!active.checked">Deaktiviert</div>
           <md-slide-toggle #active name="active" [(ngModel)]="checked" (change)="outRatingStatus(active.checked)">
