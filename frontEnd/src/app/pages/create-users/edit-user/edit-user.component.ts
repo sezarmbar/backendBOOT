@@ -18,13 +18,13 @@ export class EditUserComponent implements OnInit, OnDestroy {
   @Input() allRatings;
   @Input() selfRatings;
   userToUpdate: User;
-  authorities: Authority[] = [{name: "ROLE_USER"}];
+  authorities: Authority[] = [{ name: 'ROLE_USER' }];
   FormDataValue;
   stateCtrl: FormControl;
   filteredStates: any;
   admin = false;
-
-  _anotherUsername:boolean =false;
+  state;
+  _anotherUsername: boolean = false;
   numRatings = 0;
   form: FormGroup;
   firstname: FormControl;
@@ -34,30 +34,33 @@ export class EditUserComponent implements OnInit, OnDestroy {
   email: FormControl;
   active: FormControl;
   isadmin: FormControl;
-
+  selectedValue;
   ngOnInit() {
     this.createForm();
   }
 
   ngOnDestroy() {
   }
-  createForm(){
-    this.firstname = new FormControl(this.user.firstname, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(16)]));
-    this.lastname = new FormControl(this.user.lastname, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(16)]));
-    this.username = new FormControl(this.user.username, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(64)]));
+  createForm() {
+    this.firstname = new FormControl(this.user.firstname, Validators.compose([Validators.required,
+    Validators.minLength(4), Validators.maxLength(16)]));
+    this.lastname = new FormControl(this.user.lastname,
+      Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(16)]));
+    this.username = new FormControl(this.user.username,
+      Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(64)]));
     this.password = new FormControl(null);
-    this.email = new FormControl(this.user.email,Validators.email);
+    this.email = new FormControl(this.user.email, Validators.email);
     this.active = new FormControl(this.user.enabled);
     this.isadmin = new FormControl(this.getRoles());
 
     this.form = this.formBuilder.group({
-      firstname: this.firstname ,
-      lastname : this.lastname ,
-      username : this.username ,
-      password : this.password ,
-      email : this.email ,
-      active : this.active ,
-      isadmin : this.isadmin 
+      firstname: this.firstname,
+      lastname: this.lastname,
+      username: this.username,
+      password: this.password,
+      email: this.email,
+      active: this.active,
+      isadmin: this.isadmin
     });
   }
 
@@ -77,10 +80,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this._anotherUsername = false;
     this.preUpdateUser();
   }
-  anotherUsername(){
+  anotherUsername() {
     this._anotherUsername = true;
   }
-  anotherUsernameFalse(){
+  anotherUsernameFalse() {
     this._anotherUsername = false;
   }
   getRoles(): boolean {
@@ -101,12 +104,13 @@ export class EditUserComponent implements OnInit, OnDestroy {
     if (value !== '') {
       userRating = new UserRating(null, value, this.user.username);
       this.addUserRating(userRating);
+      this.selectedValue = '';
     }
   }
   addUserRating(userRating) {
     const userRatings: Array<UserRating> = this.selfRatings as Array<UserRating>;
     // tslint:disable-next-line:arrow-return-shorthand
-    const UR = userRatings.find(ur => { return ur.ratingName === userRating.ratingName });
+    const UR = userRatings.find(ur => { return ur.ratingName === userRating.ratingName; });
     if (UR === undefined) {
       this.userRating.emit(userRating);
     }
@@ -114,37 +118,37 @@ export class EditUserComponent implements OnInit, OnDestroy {
   dleteUserRating(userRating: UserRating) {
     this.delteUserRating.emit(userRating);
   }
-  preUpdateUser(){
+  preUpdateUser() {
     this.form.patchValue({
-      firstname: this.user.firstname ,
-      lastname : this.user.lastname ,
-      username : this.user.username ,
+      firstname: this.user.firstname,
+      lastname: this.user.lastname,
+      username: this.user.username,
       // password : this.user.password ,
-      email : this.user.email ,
-      active : this.user.enabled ,
-      isadmin : this.getRoles()
+      email: this.user.email,
+      active: this.user.enabled,
+      isadmin: this.getRoles()
     })
   }
-  onSubmit(){
+  onSubmit() {
 
     // const ROLE_USER = new Authority(null,'ROLE_USER');
     // this.authorities.push(ROLE_USER);
 
     this.FormDataValue = this.form.value;
     if (this.FormDataValue.isadmin) {
-      const ROLE_ADMIN = new Authority(null,'ROLE_ADMIN');
+      const ROLE_ADMIN = new Authority(null, 'ROLE_ADMIN');
       this.authorities.push(ROLE_ADMIN);
     }
 
-    this.userToUpdate = new User(this.user.id,this.FormDataValue.email,this.FormDataValue.username,this.FormDataValue.password,
-                        this.FormDataValue.firstname,this.FormDataValue.lastname,this.authorities,this.FormDataValue.active);
+    this.userToUpdate = new User(this.user.id, this.FormDataValue.email, this.FormDataValue.username, this.FormDataValue.password,
+      this.FormDataValue.firstname, this.FormDataValue.lastname, this.authorities, this.FormDataValue.active);
     this.updateUser();
   }
-  updateUser(){
+  updateUser() {
     this.onDatePicked.emit(this.userToUpdate);
   }
 
-  succesMessage(message){
+  succesMessage(message) {
     this.toastr.success(message);
   }
 

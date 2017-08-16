@@ -98,9 +98,9 @@
       <tr>
         <td>
           <md-input-container>
-            <input mdInput placeholder="Bewertung" #NewUserRating [mdAutocomplete]="auto" [formControl]="stateCtrl">
+            <input mdInput placeholder="Bewertung" [(ngModel)]="selectedValue" #NewUserRating [mdAutocomplete]="auto" [formControl]="stateCtrl">
           </md-input-container>
-          <md-autocomplete #auto="mdAutocomplete">
+          <md-autocomplete #auto="mdAutocomplete" >
             <md-option *ngFor="let state of filteredStates | async" [value]="state">
               {{ state }}
             </md-option>
