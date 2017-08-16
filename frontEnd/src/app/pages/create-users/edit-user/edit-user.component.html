@@ -3,7 +3,7 @@
   <md-card>
 
     <md-card-title>
-      <h2>Benutzer</h2>
+      <h2>{{this.user.username}}</h2>
     </md-card-title>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" #createUserForm="ngForm">
