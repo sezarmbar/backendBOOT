@@ -16,9 +16,9 @@ import { CreateUsersComponent } from './pages/create-users';
 const routes: Routes = [
     { path: 'r/:id', component: RatingPageComponent },
     { path: '404', component: ErrorPageComponent },
-    { path: 'home', component: HomeComponent },
-    { path: 'helpe', component: HelpeComponent },
-    { path: '', redirectTo:'home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent , canActivate: [LoginGuard] },
+    { path: 'helpe', component: HelpeComponent , canActivate: [LoginGuard] },
+    { path: '', redirectTo:'login', pathMatch: 'full' },
     { path: 'createRating', component: CreateRatingComponent },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'admin', component: AdminRatingPageComponent, canActivate: [AdminPage] },
