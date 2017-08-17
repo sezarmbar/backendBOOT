@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Rating } from '../../';
 import { RatingService } from '../../../../service';
 import { ToastrService } from 'ngx-toastr';
+import { UserService, ApiService2, ConfigService } from '../../../../service';
+import { UserRating } from '../../../../model';
+import { CreateUserPage } from './../../../../guard/loginAdminUser.guard';
 
 @Component({ selector: 'app-create-rating', templateUrl: './create-rating.component.html', styleUrls: ['./create-rating.component.scss'] })
 export class CreateRatingComponent implements OnInit {
@@ -19,7 +22,10 @@ export class CreateRatingComponent implements OnInit {
   description: FormControl;
   active: FormControl;
 
-  constructor(private toastr: ToastrService, private ratingService: RatingService, private formBuilder: FormBuilder) {
+  constructor(private toastr: ToastrService, private ratingService: RatingService,
+    private apiService: ApiService2,
+    private createUserPage: CreateUserPage,
+    private config:ConfigService, private formBuilder: FormBuilder) {
     this.createForm();
   }
   showSuccess() {
@@ -45,6 +51,7 @@ export class CreateRatingComponent implements OnInit {
     const creatRD = this.form.value;
     this.rating = new Rating(null, creatRD.ratingName, creatRD.description, 0, 0, 0, 0, 0, null, creatRD.active, creatRD.waitingTime);
     this.createRating(this.rating);
+    
 
     this.showForm = false;
     setTimeout(() => {
@@ -61,6 +68,10 @@ export class CreateRatingComponent implements OnInit {
         this.statusCode = successCode;
         this.requestProcessing = false;
         this.nameError = false;
+        if (!this.createUserPage.active) {
+          const userRating = new UserRating(null,rating.nameOfRat,this.createUserPage.username);
+          this.putUserRating(userRating);
+        } 
         this.showSuccess();
       }, (errorCode) => {
         if (errorCode === 406) {
@@ -68,6 +79,11 @@ export class CreateRatingComponent implements OnInit {
         }
       });
 
+  }
+
+  putUserRating(userRating: UserRating) {
+    this.apiService.putUserRating(this.config.user_rating_url, userRating)
+      .subscribe((successCode) => this.statusCode =successCode , (error) => console.log(error));
   }
   preProcessConfigurations() {
     this.statusCode = null;

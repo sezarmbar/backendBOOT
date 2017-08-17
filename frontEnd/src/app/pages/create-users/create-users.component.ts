@@ -5,6 +5,8 @@ import { User } from './';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { UserService, ApiService2, ConfigService } from '../../service';
+import { UserRating } from '../../model';
+
 @Component({
   selector: 'app-create-users',
   templateUrl: './create-users.component.html',
@@ -101,7 +103,4 @@ export class CreateUsersComponent implements OnInit {
     }, (errorCode) => this.editUser.anotherUsername());
   }
 
-}
-export class UserRating {
-  constructor(public id: number, public ratingName: string, public userName: string) { }
 }

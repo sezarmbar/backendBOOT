@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   keyboardInput(event: KeyboardEvent) {
-    console.log(event.key)
+
     if(['ß','Í'].includes(event.key)){
       this.show=!this.show;
     }

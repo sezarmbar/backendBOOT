@@ -4,6 +4,8 @@ import { User } from './../model/user';
 import { Component, OnInit, Output, EventEmitter, Input, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs/Subject';
+
+import { UserRating,Authority } from '../../../model';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'edit-user',
@@ -172,14 +174,3 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.delteUser.emit(this.user);
   }
 }
-// classes
-export class UserRating {
-  constructor(public id: number, public ratingName: string, public userName: string) { }
-}
-export class Authority {
-  constructor(id: number, public name: string) { }
-
-}
-
-
-
