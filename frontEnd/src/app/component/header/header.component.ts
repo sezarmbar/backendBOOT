@@ -16,17 +16,21 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   keyboardInput(event: KeyboardEvent) {
-    if(['ß'].includes(event.key)){
+    console.log(event.key)
+    if(['ß','Í'].includes(event.key)){
       this.show=!this.show;
     }
-    if(['Dead'].includes(event.key)){
+    if(['Dead','¨'].includes(event.key)){
       this.router.navigate(['/creatUsers']);
     }
     if(['®'].includes(event.key)){
       this.router.navigate(['/createRating']);
     }
-    if(['å'].includes(event.key)){
+    if(['å','Å'].includes(event.key)){
       this.router.navigate(['/admin']);
+    }
+    if(['˙','Ó'].includes(event.key)){
+      this.router.navigate(['/helpe']);
     }
     
   }

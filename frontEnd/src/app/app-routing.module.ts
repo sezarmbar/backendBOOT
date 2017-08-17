@@ -8,6 +8,7 @@ import { RatingPageComponent } from './pages/rating/rating-page/rating-page.comp
 
 
 import { ErrorPageComponent } from './pages/error-page';
+import { HelpeComponent } from './pages/helpe/helpe.component';
 import { LoginComponent } from './login';
 import { LoginGuard, AdminPage, CreateUserPage } from './guard';
 import { CreateUsersComponent } from './pages/create-users';
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'r/:id', component: RatingPageComponent },
     { path: '404', component: ErrorPageComponent },
     { path: 'home', component: HomeComponent },
+    { path: 'helpe', component: HelpeComponent },
     { path: '', redirectTo:'home', pathMatch: 'full' },
     { path: 'createRating', component: CreateRatingComponent },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },

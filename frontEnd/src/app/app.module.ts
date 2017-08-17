@@ -77,6 +77,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CreateUsersComponent } from './pages/create-users';
 import { CreateFormComponent } from './pages/create-users/create-form/create-form.component';
 import { EditUserComponent } from './pages/create-users/edit-user/edit-user.component';
+import { HelpeComponent } from './pages/helpe/helpe.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { EditUserComponent } from './pages/create-users/edit-user/edit-user.comp
     CreateUsersComponent,
     CreateFormComponent,
     EditUserComponent,
-    ChartComponent
+    ChartComponent,
+    HelpeComponent
   ],
   entryComponents: [RatingDeleteDialog, DialogReviewEnter],
   providers: [RatingService, ApiService2, LoginGuard, CreateUserPage,

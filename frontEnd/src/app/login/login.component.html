@@ -8,7 +8,7 @@
       </md-card-subtitle>
 
       <md-card-title>
-        <h2>{{title}}</h2>
+        <h2>Anmelden</h2>
       </md-card-title>
 
       <md-card-content>
@@ -20,7 +20,7 @@
           <md-input-container>
             <input mdInput formControlName="password" required type="password" placeholder="123">
           </md-input-container>
-          <button type="submit" [disabled]="!loginForm.form.valid" md-raised-button color="primary">Login</button>
+          <button type="submit" [disabled]="!loginForm.form.valid" md-raised-button color="primary">Anmelden</button>
         </form>
 
         <md-spinner *ngIf="submitted" mode="indeterminate"></md-spinner>

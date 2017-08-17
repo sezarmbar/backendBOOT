@@ -1,0 +1,21 @@
+@media screen and (max-width: 889px) {
+    
+      .content {
+        /* https://github.com/angular/flex-layout/issues/295 */
+        display: block !important;
+      }
+    }
+
+    md-card {
+        // max-width: 850px;
+        margin: 10px 10px 10px 10px ;
+        min-width: 300px;
+        text-align: center;
+        animation: fadein 1s;
+        -o-animation: fadein 1s; /* Opera */
+        -moz-animation: fadein 1s; /* Firefox */
+        -webkit-animation: fadein 1s; /* Safari and Chrome */
+      
+      }
+
+      
