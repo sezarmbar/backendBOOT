@@ -5,12 +5,12 @@ import { environment } from '../../environments/environment';
 export class ConfigService {
 
     // private _api_url = '/api';
-    // private adress = '';
+    private adress = '';
 
-    private adress = '/rating-app';
+    // private adress = '/rating-app';
     private _api_url = '/api';
 
-
+    private _find_user_url = '/findUser';
     private _user_url = this.adress + '/user';
 
     private _refresh_token_url = this.adress + '/refresh';
@@ -115,5 +115,9 @@ export class ConfigService {
 
     get user_update_url() {
         return this._user_update_url;
+    }
+
+    get find_user_url() {
+        return this._find_user_url;
     }
 }

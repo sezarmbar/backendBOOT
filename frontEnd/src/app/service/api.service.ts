@@ -140,9 +140,9 @@ export class ApiService2 {
       .catch(this.handleError);
   }
 
-  deleteUserRating(path: string, userRating) {
+  deleteUser_(path: string, body) {
     const cpHeaders = this.getcpHeaders();
-    const options = new RequestOptions({ headers: cpHeaders, body: userRating });
+    const options = new RequestOptions({ headers: cpHeaders, body: body });
     return this.http.delete(path, options)
       .map(success => success.status)
       .catch(this.handleError);

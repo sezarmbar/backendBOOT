@@ -16,6 +16,7 @@ public interface UserRatingRepository extends CrudRepository<UserRating ,Long> {
 
     List<UserRating> findAllByUserName(String userName);
 
+    @Transactional
     void deleteByUserName(String userName);
 
     @Query("SELECT ur.ratingName FROM UserRating ur WHERE  ur.userName = :userName")

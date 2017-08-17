@@ -81,15 +81,24 @@ export class CreateUsersComponent implements OnInit {
       .subscribe(() => this.getUserRatings(userRating.userName), (error) => console.log(error));
   }
 
-  delteUserRating(userRating: UserRating) {
-    this.apiService.deleteUserRating(this.config.user_rating_url, userRating)
+  deleteUserRating(userRating: UserRating) {
+    this.apiService.deleteUser_(this.config.user_rating_url, userRating)
       .subscribe(() => this.getUserRatings(userRating.userName), (error) => console.log(error));
   }
-  updateUser(user: User){
+  deleteUser(user: User) {
+    this.apiService.deleteUser_(this.config.user_url, user)
+      .subscribe(() => { this.editUser.succesMessage('Benutzer' + user.username + ': ' + 'gelöscht');
+                         this.showCreateForm = true;
+                         this.getAllUsers(); }
+      , (error) => console.log(error));
+  }
+  updateUser(user: User) {
     const userString = JSON.stringify(user);
-    return this.apiService.updateUser(this.config.user_update_url,userString).subscribe((success)=>{
-      this.getAllUsers(); this.editUser.succesMessage('Benutzer' + user.username +' '+ 'aktualisiert');this.editUser.anotherUsernameFalse()
-    },(errorCode)=> this.editUser.anotherUsername());
+    return this.apiService.updateUser(this.config.user_update_url, userString).subscribe((success) => {
+      this.getAllUsers();
+      this.editUser.succesMessage('Benutzer' + user.username + ': ' + ' aktualisiert');
+      this.editUser.anotherUsernameFalse();
+    }, (errorCode) => this.editUser.anotherUsername());
   }
 
 }

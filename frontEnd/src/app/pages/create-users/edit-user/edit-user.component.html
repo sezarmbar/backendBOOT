@@ -11,24 +11,24 @@
         <tr>
           <td>
             <md-input-container class="full-width">
-              <input mdInput formControlName="firstname" placeholder="Vor Name" >
+              <input mdInput formControlName="firstname" placeholder="Vor Name">
             </md-input-container>
           </td>
           <td>
             <md-input-container class="full-width">
-              <input mdInput formControlName="lastname"  placeholder="Nach Name">
+              <input mdInput formControlName="lastname" placeholder="Nach Name">
             </md-input-container>
           </td>
           <td class="width-15">
           </td>
         </tr>
-      </table>     
+      </table>
       <p>
         <table class="full-width" cellspacing="0">
           <tr>
             <td>
-              <md-input-container class="full-width" >
-                <input mdInput formControlName="username"  placeholder="Benutzer">
+              <md-input-container class="full-width">
+                <input mdInput formControlName="username" placeholder="Benutzer">
                 <md-hint align="start" style="color:brown" *ngIf="_anotherUsername"><strong>Wählen Sie einen aktuellen Benutzer </strong> </md-hint>
               </md-input-container>
             </td>
@@ -38,7 +38,7 @@
               </md-input-container>
             </td>
             <td class="width-15">
-               <md-checkbox #showPassword></md-checkbox>
+              <md-checkbox #showPassword></md-checkbox>
             </td>
           </tr>
         </table>
@@ -47,7 +47,7 @@
             <tr>
               <td>
                 <md-input-container class="full-width">
-                  <input mdInput formControlName="email" placeholder="Email" >
+                  <input mdInput formControlName="email" placeholder="Email">
                 </md-input-container>
               </td>
             </tr>
@@ -72,10 +72,15 @@
               </tr>
             </table>
             <p>
-              <button class="full-width" type="submit" [disabled]="!createUserForm.form.valid" md-raised-button color="primary">Aktualisieren</button>
+              <table class="full-width">
+                <tr>
+                  <td><button class="full-width" type="submit" [disabled]="!createUserForm.form.valid" md-raised-button color="primary">Aktualisieren</button></td>
+                </tr>
+              </table>
     </form>
+            <button  *ngIf="_notAdmin" class="full-width" md-raised-button color="accent" [disabled]="form.value.active" (click)="dleteUser()">löschen</button>
   </md-card>
-  
+
   <md-card *ngIf="!admin">
 
     <md-card-title>
@@ -100,7 +105,7 @@
           <md-input-container>
             <input mdInput placeholder="Bewertung" [(ngModel)]="selectedValue" #NewUserRating [mdAutocomplete]="auto" [formControl]="stateCtrl">
           </md-input-container>
-          <md-autocomplete #auto="mdAutocomplete" >
+          <md-autocomplete #auto="mdAutocomplete">
             <md-option *ngFor="let state of filteredStates | async" [value]="state">
               {{ state }}
             </md-option>

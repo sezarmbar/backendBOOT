@@ -26,7 +26,7 @@ export class CreateFormComponent implements OnInit {
   buildForm() {
     return this.formBuilder.group({
       firstname: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(16)])],
-      lastname: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(16)])],
+      lastname: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(16)])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(64)])],
       email: ['', Validators.email],

@@ -1,5 +1,9 @@
 package com.sezar.model.security;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -11,8 +15,6 @@ public class Authority {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authority_seq")
-//    @SequenceGenerator(name = "authority_seq", sequenceName = "authority_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "NAME", length = 50)
@@ -20,13 +22,11 @@ public class Authority {
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
-//    @ManyToMany
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "USER_AUTHORITY",
-//            joinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")},
-//            inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")})
-//    private List<User> users;
+//    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "authorities", cascade = CascadeType.ALL)
+//    @JsonManagedReference
+    @JsonIgnore
+    @ManyToMany(mappedBy = "authorities")
+    private List<User> users;
 
     public Long getId() {
         return id;
@@ -44,11 +44,18 @@ public class Authority {
         this.name = name;
     }
 
-//    public List<User> getUsers() {
-//        return users;
-//    }
+    public List<User> getUsers() {
+        return users;
+    }
 
-//    public void setUsers(List<User> users) {
-//        this.users = users;
-//    }
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Authority{" +
+                ", name=" + name +
+                '}';
+    }
 }

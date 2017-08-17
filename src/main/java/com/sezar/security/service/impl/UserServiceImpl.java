@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean update(User user) {
         User exist = userRepository.findOne(user.getId());
-        logger.error(exist.toString());
                if(user.getPassword()==null){
                 user.setPassword(exist.getPassword());
             }else{
@@ -56,6 +55,13 @@ public class UserServiceImpl implements UserService {
             user.setId(exist.getId());
             userRepository.save(user);
             return true;
+    }
+
+
+    @Override
+    public boolean delete(User user) {
+        userRepository.delete(user);
+        return true;
     }
 
     public boolean isExist(User user){

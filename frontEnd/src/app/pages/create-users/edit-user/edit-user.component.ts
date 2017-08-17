@@ -14,6 +14,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   @Output() onDatePicked: EventEmitter<any> = new EventEmitter<any>();
   @Output() userRating: EventEmitter<any> = new EventEmitter<any>();
   @Output() delteUserRating: EventEmitter<any> = new EventEmitter<any>();
+  @Output() delteUser: EventEmitter<any> = new EventEmitter<any>();
   @Input() user: User;
   @Input() allRatings;
   @Input() selfRatings;
@@ -36,6 +37,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   isadmin: FormControl;
   selectedValue;
   administrator = 'admin';
+  _notAdmin = false;
   // isAdministrator = false;
 
   ngOnInit() {
@@ -83,12 +85,14 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this._anotherUsername = false;
     this.preUpdateUser();
     if (this.user.username === this.administrator) {
+      this._notAdmin = false;
       this.form.get('firstname').disable();
       this.form.get('lastname').disable();
       this.form.get('username').disable();
       this.form.get('active').disable();
       this.form.get('isadmin').disable();
     } else {
+      this._notAdmin = true;
       this.form.get('firstname').enable();
       this.form.get('lastname').enable();
       this.form.get('username').disable();
@@ -143,13 +147,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
       email: this.user.email,
       active: this.user.enabled,
       isadmin: this.getRoles()
-    })
+    });
   }
+
   onSubmit() {
-
-    // const ROLE_USER = new Authority(null,'ROLE_USER');
-    // this.authorities.push(ROLE_USER);
-
     this.FormDataValue = this.form.value;
     if (this.FormDataValue.isadmin) {
       const ROLE_ADMIN = new Authority(null, 'ROLE_ADMIN');
@@ -167,7 +168,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
   succesMessage(message) {
     this.toastr.success(message);
   }
-
+  dleteUser() {
+    this.delteUser.emit(this.user);
+  }
 }
 // classes
 export class UserRating {

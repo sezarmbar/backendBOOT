@@ -1,5 +1,6 @@
 package com.sezar.security.repository;
 
+import org.hibernate.annotations.Parameter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.sezar.model.security.User;
 import org.springframework.data.jpa.repository.Query;
@@ -13,5 +14,9 @@ import java.util.List;
  */
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByUsername(String username);
+
+    @Query("SELECT u FROM User u JOIN FETCH u.authorities WHERE u.id =(:id)")
+    public User findUser(@Param("id")Long id);
+
 //    void
 }

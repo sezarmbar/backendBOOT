@@ -6,6 +6,7 @@ import com.sezar.model.security.AuthorityName;
 import com.sezar.model.security.User;
 import com.sezar.security.JwtTokenUtil;
 import com.sezar.security.service.UserService;
+import com.sezar.service.UserRatingService;
 import org.json.JSONML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +38,9 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRatingService userRatingService;
+
     @RequestMapping(value = "user", method = RequestMethod.GET)
     public JwtUser getAuthenticatedUser(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
@@ -64,15 +68,15 @@ public class UserRestController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-
     @GetMapping("all-User")
     public ResponseEntity<List<User>> getAllArticles() {
         List<User> list = userService.findAll();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
-    public ResponseEntity<Void> updateUser(@RequestBody User user){
-//        userService.save();
+    @DeleteMapping("user")
+    public ResponseEntity<Void> deleteUser(@RequestBody User user){
+        userRatingService.deleteByUserName(user.getUsername());
+        userService.delete(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
