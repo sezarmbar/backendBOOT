@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
         localStorage.setItem(this.TOKEN_KEY, data.token);
         this.setUserRollesUI(data.token);
-        this.userService.getMyInfo().subscribe((res) => this.createUserPage.username = res.username);
+        this.userService.getMyInfo().subscribe((res) => {this.createUserPage.username = res.username;});
       },
       error => {
         this.submitted = false;

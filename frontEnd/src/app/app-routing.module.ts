@@ -16,6 +16,7 @@ const routes: Routes = [
     { path: 'r/:id', component: RatingPageComponent },
     { path: '404', component: ErrorPageComponent },
     { path: 'home', component: HomeComponent },
+    { path: '', redirectTo:'home', pathMatch: 'full' },
     { path: 'createRating', component: CreateRatingComponent },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'admin', component: AdminRatingPageComponent, canActivate: [AdminPage] },

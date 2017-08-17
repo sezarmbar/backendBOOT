@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Rating, RatingService } from '../../';
+import { Rating } from '../../';
+import { RatingService } from '../../../../service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({ selector: 'app-create-rating', templateUrl: './create-rating.component.html', styleUrls: ['./create-rating.component.scss'] })

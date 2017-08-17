@@ -52,7 +52,7 @@ import {
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk';
 // service
-import { RatingService } from './pages/rating';
+import { RatingService } from './service';
 import { CreateRatingComponent } from './pages/rating/admin-rating-page/create-rating/create-rating.component';
 import { RatingInfoComponent, RatingDeleteDialog } from './pages/rating/admin-rating-page/rating-info/rating-info.component';
 import { RatingChartComponent } from './pages/rating/admin-rating-page/rating-info/rating-chart/rating-chart.component';
@@ -68,6 +68,8 @@ import { LoginComponent } from './login';
 
 import { LoginGuard, AdminPage, CreateUserPage } from './guard';
 import { HomeComponent } from './home/home.component';
+import { ChartComponent } from './home/rating-chart/chart.component';
+
 export function initUserFactory(userService: UserService) {
   return () => userService.initUser();
 }
@@ -92,7 +94,8 @@ import { EditUserComponent } from './pages/create-users/edit-user/edit-user.comp
     HomeComponent,
     CreateUsersComponent,
     CreateFormComponent,
-    EditUserComponent
+    EditUserComponent,
+    ChartComponent
   ],
   entryComponents: [RatingDeleteDialog, DialogReviewEnter],
   providers: [RatingService, ApiService2, LoginGuard, CreateUserPage,

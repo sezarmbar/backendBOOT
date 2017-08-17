@@ -1,7 +1,8 @@
 import { CreateUserPage } from './../../../guard/loginAdminUser.guard';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { OnInit, Component, ViewChild, ElementRef } from '@angular/core';
-import { Rating, Review, RatingService } from '../';
+import { Rating, Review } from '../';
+import { RatingService} from '../../../service'
 import { RatingInfoComponent } from './rating-info/rating-info.component';
 import { Observable } from 'rxjs/Rx';
 

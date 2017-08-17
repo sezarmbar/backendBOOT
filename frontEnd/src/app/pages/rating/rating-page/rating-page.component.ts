@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute, NavigationEnd, Params, ParamMap } from '@angular/router';
 import { OnInit, Component } from '@angular/core';
-import { RatingService } from '../service/rating.service';
+import { RatingService } from '../../../service';
 import { Rating, Review } from '../';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import 'rxjs/add/operator/switchMap';

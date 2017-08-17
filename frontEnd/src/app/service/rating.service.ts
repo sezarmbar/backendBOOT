@@ -1,10 +1,10 @@
-import { ConfigService } from './../../../service/config.service';
-import { ApiService2 } from './../../../service/api.service';
+import { ConfigService } from './config.service';
+import { ApiService2 } from './api.service';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 
-import { Rating, Review } from '../';
+import { Rating, Review } from '../pages/rating';
 @Injectable()
 export class RatingService {
 

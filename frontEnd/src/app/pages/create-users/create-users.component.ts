@@ -1,5 +1,5 @@
 import { Rating } from './../rating/model/rating';
-import { RatingService } from './../rating/service/rating.service';
+import { RatingService } from './../../service';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { User } from './';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';

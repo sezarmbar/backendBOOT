@@ -1,0 +1,8 @@
+<div class="content"  fxLayout="row" fxLayoutWrap >
+
+        <md-card *ngFor="let rating of allRating" fxFlex="nogrow">
+                <md-card-title> {{rating.nameOfRat}}</md-card-title>
+                
+            <app-chart   id="chartContainer" [rating]="rating" ></app-chart>
+        </md-card>
+</div>

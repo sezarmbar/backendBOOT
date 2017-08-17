@@ -1,0 +1,50 @@
+<div class="content" fxLayout="row" fxLayoutWrap >
+<table class="full-width" *ngIf="show">
+  <tr>
+    <td><img src="./assets/img/veryBad.png" class="Image" /></td>
+    <td><img src="./assets/img/bad.png" class="Image" /></td>
+    <td><img src="./assets/img/normal.png" class="Image" /></td>
+    <td><img src="./assets/img/god.png" class="Image" /></td>
+    <td colspan="2"><img src="./assets/img/veryGod.png" class="Image" /></td>
+  </tr>
+  <tr>
+    <td>{{rating.veryBad}}</td>
+    <td>{{rating.bad}}</td>
+    <td>{{rating.normal}}</td>
+    <td>{{rating.god}}</td>
+    <td colspan="2">{{rating.veryGod}}</td>
+  </tr>
+</table>
+
+<table fxFlex="nogrow" *ngIf="show">
+  <tr>
+    <td>
+      <ngx-charts-pie-chart class="full-width" [view]="view" [scheme]="colorScheme" [results]="chartDate" [legend]="showLegend"
+        [explodeSlices]="explodeSlices" [labels]="showLabels" [doughnut]="doughnut" (select)="onSelect($event)">
+      </ngx-charts-pie-chart>
+    </td>
+  </tr>
+</table>
+
+<div fxFlex="nogrow" class="description"> {{rating.description}}</div>
+
+<div class="kein-info" *ngIf="!show">Noch Kei Informationen</div>
+</div>
+
+
+<!-- 
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="single"
+        [legend]="showLegend"
+        [legendTitle]="legendTitle"
+        [explodeSlices]="explodeSlices"
+        [labels]="showLabels"
+        [doughnut]="doughnut"
+        [arcWidth]="arcWidth"
+        (legendLabelClick)="onLegendLabelClick($event)"
+        [gradient]="gradient"
+        [tooltipDisabled]="tooltipDisabled"
+        [tooltipText]="pieTooltipText"
+        (select)="select($event)"
+       -->

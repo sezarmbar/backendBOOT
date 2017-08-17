@@ -1,0 +1,29 @@
+.full-width {
+    width: 100%;
+  }
+  @media screen and (min-width: 889px) {
+    
+      .content {
+        /* https://github.com/angular/flex-layout/issues/295 */
+        display: block !important;
+      }
+    }
+
+  img.Image { max-width: 25px;}
+ .description{
+   width: 250px;
+   margin: 10px 10px 10px 10px ;
+   font-size: 25px;
+ }
+
+ .kein-info{
+  margin: 0;
+  background: yellow;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) }
+
+
+ 
