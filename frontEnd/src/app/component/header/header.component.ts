@@ -26,6 +26,9 @@ export class HeaderComponent implements OnInit {
     if(['®'].includes(event.key)){
       this.router.navigate(['/createRating']);
     }
+    if(['å'].includes(event.key)){
+      this.router.navigate(['/admin']);
+    }
     
   }
   
