@@ -28,7 +28,7 @@ import { ToastrService } from 'ngx-toastr';
 
       })),
       state('active', style({
-        transform: 'scale(3)',
+        transform: 'scale(1.5)',
         zIndex: 999,
         // backgroundColor: '#cfd8dc'
       })),

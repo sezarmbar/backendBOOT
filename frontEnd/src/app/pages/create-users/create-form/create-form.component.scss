@@ -1,6 +1,6 @@
 md-card {
   max-width: 600px;
-  min-width: 500px;
+  min-width: 382px;
   text-align: center;
   animation: fadein 1s;
   -o-animation: fadein 1s; /* Opera */
@@ -9,6 +9,13 @@ md-card {
 
 }
 
+@media screen and (max-width: 599px) {
+
+  .content {
+    /* https://github.com/angular/flex-layout/issues/295 */
+    display: block !important;
+  }
+}
 .content{
     padding-top: 40px;
 }

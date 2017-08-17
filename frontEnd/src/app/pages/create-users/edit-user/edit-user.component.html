@@ -1,6 +1,6 @@
 <div class="content" fxLayout="row" fxLayoutAlign="center">
 
-  <md-card>
+  <md-card  fxFlex>
 
     <md-card-title>
       <h2>{{this.user.username}}</h2>
@@ -81,7 +81,7 @@
             <button  *ngIf="_notAdmin" class="full-width" md-raised-button color="accent" [disabled]="form.value.active" (click)="dleteUser()">löschen</button>
   </md-card>
 
-  <md-card *ngIf="!admin">
+  <md-card *ngIf="!admin"  fxFlex>
 
     <md-card-title>
       <h2>Bewertungen</h2>
