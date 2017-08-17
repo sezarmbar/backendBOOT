@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import {
   UserService,
   AuthService
 } from '../../service';
+
 import { Router } from '@angular/router';
 import { CreateUserPage } from '../../guard';
 
@@ -12,6 +13,23 @@ import { CreateUserPage } from '../../guard';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  @HostListener('window:keydown', ['$event'])
+  keyboardInput(event: KeyboardEvent) {
+    console.log(event.key)
+    if(['ß'].includes(event.key)){
+      this.show=!this.show;
+    }
+    if(['Dead'].includes(event.key)){
+      this.router.navigate(['/creatUsers']);
+    }
+    if(['®'].includes(event.key)){
+      this.router.navigate(['/createRating']);
+    }
+    
+  }
+  
+
   show = true;
   constructor(
     private userService: UserService,
