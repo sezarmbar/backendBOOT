@@ -89,9 +89,9 @@ export class RatingPageComponent implements OnInit {
   ngOnInit() {
     this.getURL();
     this.empjiStatus = new EmpjiStatus('inactive', 'inactive', 'inactive', 'inactive', 'inactive');
-    this.ratingObserve = Observable.interval(1000 * 60).subscribe(x => {
-      this.getRatingByName(this.currentNameRating);
-    });
+    // this.ratingObserve = Observable.interval(1000 * 60).subscribe(x => {
+    //   this.getRatingByName(this.currentNameRating);
+    // });
     //          or
     // this.readIdFromUrl()
   }
@@ -153,8 +153,6 @@ export class RatingPageComponent implements OnInit {
       // this.openDialog()
       setTimeout(() => this.timeout = true, this.rating.waitingTime * 60000);
     } else {
-
-
       this.toastr.warning('!!!', 'warten bitte ');
     }
 
@@ -174,10 +172,11 @@ export class RatingPageComponent implements OnInit {
     this.preProcessConfigurations();
     this
       .ratingService
-      .putRating(rating)
+      .updateRating(rating)
       .subscribe((successCode) => {
         this.statusCode = successCode;
       }, (errorCode) => this.statusCode = errorCode);
+      this.getRatingByName(this.currentNameRating);
   }
 
   getRating(id) {
@@ -227,7 +226,7 @@ export class RatingPageComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.ratingObserve.unsubscribe();
+    // this.ratingObserve.unsubscribe();
   }
 
 }
