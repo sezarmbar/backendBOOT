@@ -108,14 +108,14 @@ export class RatingPageComponent implements OnInit {
 
   openDialog() {
     if (this.timeoutReview) {
-      this.toggleMove(this.rat);
+      // this.toggleMove(this.rat);
       const dialogRef = this
         .dialog
         .open(DialogReviewEnter);
       dialogRef
         .afterClosed()
         .subscribe(result => {
-          this.toggleMove(this.rat);
+          // this.toggleMove(this.rat);
           this.enteredReview = result;
           if (this.enteredReview != null && this.enteredReview !== '') {
             this.addReview(this.enteredReview);
@@ -162,12 +162,12 @@ export class RatingPageComponent implements OnInit {
   timeOut(rat) {
     this.rat = rat;
     this.openDialog();
-    if (!this.timeoutReview) {
+    // if (!this.timeoutReview) {
       this.toggleMove(rat);
       setTimeout(() => {
         this.toggleMove(rat);
       }, 800);
-    }
+    // }
   }
 
   onAddOrUpdateRate(rating: Rating) {
