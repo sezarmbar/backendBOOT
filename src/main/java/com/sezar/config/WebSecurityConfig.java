@@ -77,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .antMatchers("/auth/**").permitAll()
 //                disable for more security
-                .antMatchers("/api/rating","/api/review","/api/ratingName").permitAll()
+                .antMatchers("/api/rating-some","/api/review","/api/ratingName").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated();
 

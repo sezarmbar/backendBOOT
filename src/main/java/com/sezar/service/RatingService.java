@@ -18,5 +18,5 @@ public interface RatingService {
     List<Rating> findAll();
     void deleteRating(Rating rating);
     List<Rating> findthis(List<String> listNameOfRat);
-
+    boolean updateSomeField(Rating rating);
 }

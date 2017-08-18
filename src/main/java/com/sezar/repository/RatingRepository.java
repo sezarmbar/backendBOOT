@@ -19,4 +19,7 @@ public interface RatingRepository extends CrudRepository<Rating, Long> {
     @Query("SELECT r FROM Rating r WHERE  r.nameOfRat in :listNameOfRat")
     List<Rating> findthis(@Param("listNameOfRat")List<String> listNameOfRat);
 
+    @Query("UPDATE Rating r SET r.bad=(:bad), r.veryBad=(:veryBad),r.normal=(:normal),r.god=(:god),r.veryGod=(:veryGod)")
+    void update(@Param("veryBad") int veryBad,@Param("bad") int bad,@Param("normal") int normal,@Param("god") int god,@Param("veryGod") int veryGod);
+
 }

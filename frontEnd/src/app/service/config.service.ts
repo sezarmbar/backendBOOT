@@ -10,7 +10,10 @@ export class ConfigService {
     // private adress = '/rating-app';
     private _api_url = '/api';
 
+
+
     private _find_user_url = '/findUser';
+
     private _user_url = this.adress + '/user';
 
     private _refresh_token_url = this.adress + '/refresh';
@@ -46,6 +49,8 @@ export class ConfigService {
     private _review_url = this.adress + this._api_url + '/review';
 
     private _rating_by_userName_url = this.adress + this._api_url + '/ratingByUserName';
+
+    private _rating_some_url = this.adress + this._api_url +  '/rating-some';
 
 
     get rating_by_userName_url() {
@@ -119,5 +124,8 @@ export class ConfigService {
 
     get find_user_url() {
         return this._find_user_url;
+    }
+    get rating_some(){
+        return this._rating_some_url;
     }
 }
