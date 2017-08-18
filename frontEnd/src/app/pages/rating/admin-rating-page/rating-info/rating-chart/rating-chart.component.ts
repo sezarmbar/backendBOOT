@@ -9,7 +9,7 @@ export class RatingChartComponent implements OnInit {
   multi: any[];
   view: any[] = [370, 280];
 
-  colorScheme = {domain: ['#E83237', '#E86939', '#EAC341', '#25CF3C', '#38A4E8']};
+  colorScheme = {domain: ['#E83237', '#E86939', '#EAC341', '#38A4E8', '#25CF3C']};
   showLegend = false;
   showLabels = false;
   explodeSlices = false;
