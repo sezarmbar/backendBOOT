@@ -1,4 +1,4 @@
-import { Component, OnInit,HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import {
   UserService,
   AuthService
@@ -13,30 +13,48 @@ import { CreateUserPage } from '../../guard';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  show = true;
   @HostListener('window:keydown', ['$event'])
   keyboardInput(event: KeyboardEvent) {
-
-    if(['ß','Í'].includes(event.key)){
-      this.show=!this.show;
+    if (['ß', 'Í'].includes(event.key)) {
+      this.show = !this.show;
     }
-    if(['Dead','¨'].includes(event.key)){
+    if (['Dead', '¨'].includes(event.key)) {
       this.router.navigate(['/creatUsers']);
     }
-    if(['®'].includes(event.key)){
+    if (['®'].includes(event.key)) {
       this.router.navigate(['/createRating']);
     }
-    if(['å','Å'].includes(event.key)){
+    if (['å', 'Å'].includes(event.key)) {
       this.router.navigate(['/admin']);
     }
-    if(['˙','Ó'].includes(event.key)){
+    if (['˙', 'Ó'].includes(event.key)) {
       this.router.navigate(['/helpe']);
     }
-    
-  }
-  
 
-  show = true;
+  }
+  @HostListener('window:keydown.alt.s', ['$event'])
+  keydownAlts(event: KeyboardEvent) {
+    this.show = !this.show;
+  }
+  @HostListener('window:keydown.alt.u', ['$event'])
+  keydownAltu(event: KeyboardEvent) {
+    this.router.navigate(['/creatUsers']);
+  }
+  @HostListener('window:keydown.alt.r', ['$event'])
+  keydownAltr(event: KeyboardEvent) {
+   this.router.navigate(['/createRating']);
+  }
+  @HostListener('window:keydown.alt.a', ['$event'])
+  keydownAlta(event: KeyboardEvent) {
+    this.router.navigate(['/admin']);
+  }
+  @HostListener('window:keydown.alt.h', ['$event'])
+  keydownAlth(event: KeyboardEvent) {
+    this.router.navigate(['/helpe']);
+  }
+
+
   constructor(
     private userService: UserService,
     private authService: AuthService,
