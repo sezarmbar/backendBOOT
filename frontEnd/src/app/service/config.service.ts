@@ -50,8 +50,9 @@ export class ConfigService {
 
     private _rating_by_userName_url = this.adress + this._api_url + '/ratingByUserName';
 
-    private _rating_some_url = this.adress + this._api_url +  '/rating-some';
+    private _rating_some_url = this.adress + this._api_url + '/rating-some-status';
 
+    private _rating_some_info_url = this.adress + this._api_url + '/rating-some-info';
 
     get rating_by_userName_url() {
         return this._rating_by_userName_url;
@@ -125,7 +126,10 @@ export class ConfigService {
     get find_user_url() {
         return this._find_user_url;
     }
-    get rating_some(){
+    get rating_some_url() {
         return this._rating_some_url;
+    }
+    get rating_some_info_url() {
+        return this._rating_some_info_url;
     }
 }

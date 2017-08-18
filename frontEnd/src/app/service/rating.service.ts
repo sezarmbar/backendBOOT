@@ -92,12 +92,21 @@ export class RatingService {
       .map(success => success.status)
       .catch(this.handleError);
   }
-  updateRating(rating: Rating): Observable<number> {
+  updateStatuseRating(rating: Rating): Observable<number> {
     const cpHeaders = this.apiService.getcpHeaders();
     const options = new RequestOptions({ headers: cpHeaders });
     return this
       .http
-      .post(this.config.rating_some, rating, options)
+      .post(this.config.rating_some_url, rating, options)
+      .map(success => success.status)
+      .catch(this.handleError);
+  }
+  updateInfoRating(rating: Rating): Observable<number> {
+    const cpHeaders = this.apiService.getcpHeaders();
+    const options = new RequestOptions({ headers: cpHeaders });
+    return this
+      .http
+      .post(this.config.rating_some_info_url, rating, options)
       .map(success => success.status)
       .catch(this.handleError);
   }

@@ -72,9 +72,17 @@ public class RatingController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
-    @PostMapping("rating-some")
+    @PostMapping("rating-some-status")
     public ResponseEntity<Void> updateSome(@RequestBody Rating rating) {
-        boolean flag = ratingService.updateRating(rating);
+        boolean flag = ratingService.updateSomeField(rating);
+        if (flag == false) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>( HttpStatus.CREATED);
+    }
+    @PostMapping("rating-some-info")
+    public ResponseEntity<Void> updateSomeInfo(@RequestBody Rating rating) {
+        boolean flag = ratingService.updateInfoField(rating);
         if (flag == false) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }

@@ -71,6 +71,12 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
+    public boolean updateInfoField(Rating rating) {
+         ratingRepository.updateInfo(rating.getDescription(),rating.isActive(),rating.getwaitingTime());
+        return true;
+    }
+
+    @Override
     public boolean isRatinExist(String nameOfRat) {
         Rating rating = ratingRepository.findByNameOfRat(nameOfRat);
         if( rating != null ) {return true;}

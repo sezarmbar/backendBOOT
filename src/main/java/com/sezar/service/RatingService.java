@@ -19,4 +19,6 @@ public interface RatingService {
     void deleteRating(Rating rating);
     List<Rating> findthis(List<String> listNameOfRat);
     boolean updateSomeField(Rating rating);
+    boolean updateInfoField(Rating rating);
+
 }

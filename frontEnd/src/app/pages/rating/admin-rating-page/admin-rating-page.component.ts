@@ -53,7 +53,7 @@ export class AdminRatingPageComponent implements OnInit {
     this.preProcessConfigurations();
     this
       .ratingService
-      .putRating(rating)
+      .updateInfoRating(rating)
       .subscribe((successCode) => {
         this.statusCode = successCode;
         this.requestProcessing = false;
