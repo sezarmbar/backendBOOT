@@ -29,7 +29,7 @@ export class CreateRatingComponent implements OnInit {
     this.createForm();
   }
   showSuccess() {
-    this.toastr.success('Hello world!', 'Toastr fun!');
+    this.toastr.success('Bewertung erstellt');
   }
   ngOnInit() {
     this.createForm();

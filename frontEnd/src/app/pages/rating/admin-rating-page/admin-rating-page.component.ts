@@ -2,9 +2,10 @@ import { CreateUserPage } from './../../../guard/loginAdminUser.guard';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { OnInit, Component, ViewChild, ElementRef } from '@angular/core';
 import { Rating, Review } from '../';
-import { RatingService} from '../../../service'
+import { RatingService } from '../../../service';
 import { RatingInfoComponent } from './rating-info/rating-info.component';
 import { Observable } from 'rxjs/Rx';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-rating-page', templateUrl: './admin-rating-page.component.html', styleUrls: ['./admin-rating-page.component.scss']
@@ -29,7 +30,7 @@ export class AdminRatingPageComponent implements OnInit {
   observ = false;
   observSubscribe: any;
   constructor(private ratingService: RatingService, private route: Router, private activatedRoute: ActivatedRoute,
-    private createUserPage: CreateUserPage) { }
+    private createUserPage: CreateUserPage, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getAllRating();
@@ -56,9 +57,13 @@ export class AdminRatingPageComponent implements OnInit {
       .updateInfoRating(rating)
       .subscribe((successCode) => {
         this.statusCode = successCode;
+        this.showSuccess(rating);
         this.requestProcessing = false;
       }, (errorCode) => this.statusCode = errorCode);
 
+  }
+  showSuccess(rating: Rating) {
+    this.toastr.success('Bewertung: ' + rating.nameOfRat + ' aktualisiert');
   }
 
   getAllRating() {
@@ -123,6 +128,7 @@ export class AdminRatingPageComponent implements OnInit {
       .deleteRatingByRating(rating)
       .subscribe((successCode) => {
         this.statusCode = successCode;
+        this.toastr.success('Bewertung: ' + rating.nameOfRat + '  gelöscht');
         this.requestProcessing = false;
         this.getAllRating();
         this.closeInfpRating();
