@@ -66,13 +66,13 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public boolean updateSomeField(Rating rating) {
-        ratingRepository.update(rating.getVeryBad(),rating.getBad(),rating.getNormal(),rating.getGod(),rating.getVeryGod());
+        ratingRepository.update(rating.getId(),rating.getVeryBad(),rating.getBad(),rating.getNormal(),rating.getGod(),rating.getVeryGod());
         return true;
     }
 
     @Override
     public boolean updateInfoField(Rating rating) {
-         ratingRepository.updateInfo(rating.getDescription(),rating.isActive(),rating.getwaitingTime());
+         ratingRepository.updateInfo(rating.getId(),rating.getDescription(),rating.isActive(),rating.getwaitingTime());
         return true;
     }
 

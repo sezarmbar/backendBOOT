@@ -23,11 +23,11 @@ public interface RatingRepository extends CrudRepository<Rating, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Rating r SET r.bad=(:bad), r.veryBad=(:veryBad),r.normal=(:normal),r.god=(:god),r.veryGod=(:veryGod)")
-    void update(@Param("veryBad") int veryBad,@Param("bad") int bad,@Param("normal") int normal,@Param("god") int god,@Param("veryGod") int veryGod);
+    @Query("UPDATE Rating r SET r.bad=(:bad), r.veryBad=(:veryBad),r.normal=(:normal),r.god=(:god),r.veryGod=(:veryGod) where r.id=(:id)")
+    void update(@Param("id") Long id,@Param("veryBad") int veryBad,@Param("bad") int bad,@Param("normal") int normal,@Param("god") int god,@Param("veryGod") int veryGod);
 
     @Modifying
     @Transactional
-    @Query("UPDATE Rating r SET r.description=(:description), r.active=(:active),r.waitingTime =(:waitingTime)")
-    void updateInfo(@Param("description") String description,@Param("active") boolean active,@Param("waitingTime") float waitingTime);
+    @Query("UPDATE Rating r SET r.description=(:description), r.active=(:active),r.waitingTime =(:waitingTime)  where r.id=(:id)")
+    void updateInfo(@Param("id") Long id,@Param("description") String description,@Param("active") boolean active,@Param("waitingTime") float waitingTime);
 }
