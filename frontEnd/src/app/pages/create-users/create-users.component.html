@@ -10,9 +10,9 @@
         </button>
       </md-toolbar>
       <md-list>
-        <md-list-item>
-           <a class="button-rating"  *ngIf="!showCreateForm" (click)="showCreateForm =!showCreateForm" md-raised-button color="primary">
-              Benutzer erstellen
+        <md-list-item  *ngIf="!showCreateForm" >
+           <a class="button-rating" (click)="showCreateForm =!showCreateForm" md-raised-button color="primary">
+              Neu Benutzer erstellen
           </a>
         </md-list-item>
         <md-list-item *ngFor="let user of allUsers">

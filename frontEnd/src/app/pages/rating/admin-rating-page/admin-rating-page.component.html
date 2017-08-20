@@ -10,7 +10,7 @@
         </button>
       </md-toolbar>
       <md-list>
-        <md-list-item>
+        <md-list-item *ngIf="schowCreateButton" >
           <div class="ceate-button">
             <button md-raised-button color="accent" routerLink="/createRating" color="primary">
               Bewertung erstellen

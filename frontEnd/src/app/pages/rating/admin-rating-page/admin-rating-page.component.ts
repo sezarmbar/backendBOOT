@@ -24,7 +24,7 @@ export class AdminRatingPageComponent implements OnInit {
   allReviwsForRating: Review[];
   chartDate: any;
   oldRatingId;
-
+  schowCreateButton=true;
   nameError = false;
   @ViewChild('setReviewData') ReviewData: RatingInfoComponent;
   observ = false;
@@ -68,8 +68,10 @@ export class AdminRatingPageComponent implements OnInit {
 
   getAllRating() {
     if (this.createUserPage.active) {
+      this.schowCreateButton = true;
       this.getAllRatings();
     } else {
+      this.schowCreateButton = false;
       this.getAllRatingsByUsername();
     }
   }

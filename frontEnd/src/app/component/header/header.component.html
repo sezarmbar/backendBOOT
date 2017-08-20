@@ -15,14 +15,16 @@
         </button>
 
         
-        <button *ngIf="hasSignedIn()" routerLink="/helpe" md-button md-ripple>
+        <button *ngIf="isSuperUser() && hasSignedIn()" routerLink="/helpe" md-button md-ripple>
           Hilfe
         </button>
         
-        <button md-button [mdMenuTriggerFor]="Erstellung" *ngIf="hasSignedIn()">Erstellung</button>
+        <button routerLink="/admin" *ngIf=" !isSuperUser() && hasSignedIn()" md-button md-ripple>Bewertungen</button>
+        
+        <button md-button  *ngIf="isSuperUser() && hasSignedIn()" [mdMenuTriggerFor]="Erstellung" >Erstellung</button>
         <md-menu #Erstellung="mdMenu">
-          <button routerLink="/admin" *ngIf="hasSignedIn()" md-menu-item>Bewertungen</button>
-          <button routerLink="/creatUsers" *ngIf="isSuperUser() && hasSignedIn()" md-menu-item>Benutzeren</button>
+          <button routerLink="/admin" md-menu-item>Bewertungen</button>
+          <button routerLink="/creatUsers" md-menu-item>Benutzeren</button>
         </md-menu>
 
 
