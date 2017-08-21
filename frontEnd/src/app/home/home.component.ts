@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getAllRating();
-    console.log(this.createUserPage.username);
+    
   }
 
   getAllRating() {

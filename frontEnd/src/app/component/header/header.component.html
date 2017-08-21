@@ -1,39 +1,40 @@
 
-  <div *ngIf="show">
-    <md-toolbar color="primary" class="app-navbar">
-      <button md-button md-ripple routerLink="/home">
-        <span>Bewertung Application</span>
+<div *ngIf="show">
+  <md-toolbar color="primary" class="app-navbar">
+    <button md-button md-ripple routerLink="/home">
+      <span>Bewertung Application</span>
+    </button>
+
+    <button md-button md-ripple (click)="show=!show">
+      <div mdTooltip="Klicken Sie ALT+S zu Anzeigen ">Verstecken</div>
+    </button>
+    <div class="right">
+
+      <button *ngIf="!hasSignedIn()" routerLink="/login" md-button md-ripple>
+        Anmelden
       </button>
 
-      <button md-button md-ripple (click)="show=!show">
-        <div mdTooltip="Klicken Sie ALT+S zu Anzeigen ">Verstecken</div>
-      </button>
-      <div class="right">
-        
-        <button *ngIf="!hasSignedIn()" routerLink="/login" md-button md-ripple>
-          Anmelden
-        </button>
 
-        
-        <button *ngIf="isSuperUser() && hasSignedIn()" routerLink="/helpe" md-button md-ripple>
-          Hilfe
-        </button>
-        
-        <button routerLink="/admin" *ngIf=" !isSuperUser() && hasSignedIn()" md-button md-ripple>Bewertungen</button>
-        
-        <button md-button  *ngIf="isSuperUser() && hasSignedIn()" [mdMenuTriggerFor]="Erstellung" >Erstellung</button>
-        <md-menu #Erstellung="mdMenu">
-          <button routerLink="/admin" md-menu-item>Bewertungen</button>
-          <button routerLink="/creatUsers" md-menu-item>Benutzeren</button>
-        </md-menu>
+      <button routerLink="/home" *ngIf="hasSignedIn()" md-button md-ripple>Start</button>
+      
+
+      <button routerLink="/admin" *ngIf=" !isSuperUser() && hasSignedIn()" md-button md-ripple>Bewertungen</button>
+
+      <button md-button  *ngIf="isSuperUser() && hasSignedIn()" [mdMenuTriggerFor]="Erstellung" >Erstellung</button>
+      <md-menu #Erstellung="mdMenu">
+        <button routerLink="/admin" md-menu-item>Bewertungen</button>
+        <button routerLink="/creatUsers" md-menu-item>Benutzeren</button>
+      </md-menu>
 
 
 
-        <button md-button [mdMenuTriggerFor]="menu" *ngIf="hasSignedIn()">{{userName()}}</button>
-        <md-menu #menu="mdMenu">
-          <button md-menu-item (click)="logout()">Abmelden</button>
-        </md-menu>
-      </div>
-    </md-toolbar>
-  </div>
+      <button md-button [mdMenuTriggerFor]="menu" *ngIf="hasSignedIn()">{{userName()}}</button>
+      <md-menu #menu="mdMenu">
+        <button md-menu-item *ngIf="isSuperUser() && hasSignedIn()" routerLink="/helpe">Hilfe</button>
+        <button md-menu-item (click)="logout()">Abmelden</button>
+      </md-menu>
 
+
+    </div>
+  </md-toolbar>
+</div>

@@ -68,8 +68,23 @@ table {
     max-width: none;
   }
 }
+.full-width {
+  width: 100%;
+  
+}
 
 
 .index999{
   z-index: 99;
 }
+
+.endPic {
+       position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.startPic{
+     position: relative;
+    top: 20px;
+    left: 20px;
+  }

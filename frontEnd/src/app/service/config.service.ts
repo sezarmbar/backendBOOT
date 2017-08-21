@@ -5,9 +5,8 @@ import { environment } from '../../environments/environment';
 export class ConfigService {
 
     // private _api_url = '/api';
-    private adress = '';
-
-    // private adress = '/rating-app';
+    // private adress = '';
+    private adress = '/rating-app';
     private _api_url = '/api';
 
 

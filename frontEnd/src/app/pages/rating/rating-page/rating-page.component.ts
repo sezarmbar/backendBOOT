@@ -1,5 +1,5 @@
 import { Router, ActivatedRoute, NavigationEnd, Params, ParamMap } from '@angular/router';
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, OnDestroy } from '@angular/core';
 import { RatingService } from '../../../service';
 import { Rating, Review } from '../';
 import { MdDialog, MdDialogRef } from '@angular/material';
@@ -13,7 +13,7 @@ import {
   transition,
   keyframes
 } from '@angular/animations';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService, GlobalConfig } from 'ngx-toastr';
 
 
 @Component({
@@ -50,7 +50,8 @@ import { ToastrService } from 'ngx-toastr';
 
   ]
 })
-export class RatingPageComponent implements OnInit {
+export class RatingPageComponent implements OnInit, OnDestroy {
+  options: GlobalConfig;
   statusCode: number;
   rating: Rating;
   ratingObserve: any;
@@ -77,8 +78,8 @@ export class RatingPageComponent implements OnInit {
   constructor(public dialog: MdDialog, private ratingService: RatingService,
     private toastr: ToastrService,
     private router: Router, private activatedRoute: ActivatedRoute) {
-
-
+    this.options = this.toastr.toastrConfig;
+    this.options.positionClass = 'toast-top-full-width';
     router.events.subscribe((val: any) => {
       // console.log(val.url)
       this.getURL();
@@ -93,7 +94,7 @@ export class RatingPageComponent implements OnInit {
       this.getURL();
       this.getRatingByName(this.currentNameRating);
     });
-            //  or
+    //  or
     // this.readIdFromUrl()
   }
 
@@ -154,7 +155,7 @@ export class RatingPageComponent implements OnInit {
       // this.openDialog()
       setTimeout(() => this.timeout = true, this.rating.waitingTime * 60000);
     } else {
-      this.toastr.warning('!!!', 'warten bitte ');
+      this.toastr.warning('Bitte warten Sie');
     }
 
   }
@@ -162,10 +163,10 @@ export class RatingPageComponent implements OnInit {
     this.rat = rat;
     this.openDialog();
     // if (!this.timeoutReview) {
+    this.toggleMove(rat);
+    setTimeout(() => {
       this.toggleMove(rat);
-      setTimeout(() => {
-        this.toggleMove(rat);
-      }, 800);
+    }, 800);
     // }
   }
 
@@ -175,9 +176,10 @@ export class RatingPageComponent implements OnInit {
       .ratingService
       .updateStatuseRating(rating)
       .subscribe((successCode) => {
+        this.toastr.success('Vielen Dank für ihre Bewertung. ');
         this.statusCode = successCode;
       }, (errorCode) => this.statusCode = errorCode);
-      this.getRatingByName(this.rating.nameOfRat);
+    this.getRatingByName(this.rating.nameOfRat);
   }
 
   getRating(id) {
@@ -236,7 +238,6 @@ export class RatingPageComponent implements OnInit {
 export class DialogReviewEnter {
   public enteredReview: string;
   constructor(public dialogRef: MdDialogRef<DialogReviewEnter>) { }
-
 }
 
 export class EmpjiStatus {

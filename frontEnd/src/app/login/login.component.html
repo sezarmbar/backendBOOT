@@ -15,10 +15,10 @@
 
         <form *ngIf="!submitted" [formGroup]="form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
           <md-input-container>
-            <input mdInput formControlName="username" required placeholder="user/admin">
+            <input mdInput formControlName="username" required placeholder="User Name">
           </md-input-container>
           <md-input-container>
-            <input mdInput formControlName="password" required type="password" placeholder="123">
+            <input mdInput formControlName="password" required type="password" placeholder="Password">
           </md-input-container>
           <button type="submit" [disabled]="!loginForm.form.valid" md-raised-button color="primary">Anmelden</button>
         </form>

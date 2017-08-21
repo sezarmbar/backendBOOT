@@ -21,7 +21,7 @@ import * as jsPDF from 'jspdf';
 import * as jpt from 'jspdf-autotable';
 
 @Component({ selector: 'app-rating-info', templateUrl: './rating-info.component.html', styleUrls: ['./rating-info.component.scss'] })
-export class RatingInfoComponent implements OnInit ,OnDestroy {
+export class RatingInfoComponent implements OnInit, OnDestroy {
 
   @ViewChild('chartContainer') chartContainer: ElementRef;
   @Input() rating: Rating;
@@ -33,11 +33,11 @@ export class RatingInfoComponent implements OnInit ,OnDestroy {
 
 
   checked = false;
-  showChart= true;
+  showChart = true;
   highlights = new Set<string>();
   displayedColumns = ['userName'];
   reviewDatabase;
-  EnablePdfButton= true;
+  EnablePdfButton = true;
   dataSource: ReviewDataSource | null;
   createdAt: string;
   waitingTime;
@@ -64,7 +64,7 @@ export class RatingInfoComponent implements OnInit ,OnDestroy {
 
     });
   }
-  getAllReviewsObservable(value){
+  getAllReviewsObservable(value) {
     this.verfolgung.emit(value);
   }
   setReviewData(reviews): void {
@@ -75,9 +75,9 @@ export class RatingInfoComponent implements OnInit ,OnDestroy {
       .highlights
       .add('odd');
     this.convertCreatedAt();
-    if(reviews.length > 0){
+    if (reviews.length > 0) {
       this.EnablePdfButton = false;
-    }else{
+    } else {
       this.EnablePdfButton = true;
     }
   }
@@ -91,9 +91,9 @@ export class RatingInfoComponent implements OnInit ,OnDestroy {
     let toyear = new Date(this.rating.createdAt).getFullYear();
     this.createdAt = tomonth + '/' + todate + '/' + toyear;
   }
-  
+
   ceatePDF() {
-    const me = this
+    const me = this;
     var doc = new jsPDF();
     var startingPage = doc
       .internal
@@ -103,7 +103,7 @@ export class RatingInfoComponent implements OnInit ,OnDestroy {
     let rows = [
       [this.rating.veryBad, this.rating.bad, this.rating.normal, this.rating.god, this.rating.veryGod]
     ];
-    var doc = new jsPDF('p', 'pt');
+    doc = new jsPDF('p', 'pt');
     jpt;
 
     doc.setFontSize(14);
@@ -166,8 +166,8 @@ export class RatingInfoComponent implements OnInit ,OnDestroy {
     doc.save(this.rating.nameOfRat + '.pdf');
 
   }
-    ngOnDestroy(){
-    this.verfolgung.emit(false);    
+  ngOnDestroy() {
+    this.verfolgung.emit(false);
   }
 
 }

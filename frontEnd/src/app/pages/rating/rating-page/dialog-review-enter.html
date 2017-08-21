@@ -1,7 +1,19 @@
 <div md-dialog-content>
-  <md-input-container class="dialogStyle">
-    <textarea mdInput #reviewTxt id="reviewTxt" name="reviewTxt" placeholder="Review"></textarea>
-  </md-input-container>
+  <table>
+    <tr>
+      <td>
+        <h2> Was können wir besser machen?</h2>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <md-input-container class="dialogStyle">
+          <textarea mdInput #reviewTxt id="reviewTxt" name="reviewTxt" color="black" placeholder="Was können wir besser machen?"></textarea>
+        </md-input-container>
+      </td>
+    </tr>
+  </table>
+
 </div>
 <div md-dialog-actions>
   <button md-fab md-dialog-close="" color="accent"><md-icon>close</md-icon></button>
