@@ -155,7 +155,7 @@ export class RatingPageComponent implements OnInit, OnDestroy {
       // this.openDialog()
       setTimeout(() => this.timeout = true, this.rating.waitingTime * 60000);
     } else {
-      this.toastr.warning('Bitte warten Sie');
+      this.toastr.warning('Sie haben schon abgestimt.');
     }
 
   }
@@ -176,10 +176,12 @@ export class RatingPageComponent implements OnInit, OnDestroy {
       .ratingService
       .updateStatuseRating(rating)
       .subscribe((successCode) => {
+        console.log(rating)
         this.toastr.success('Vielen Dank für ihre Bewertung. ');
         this.statusCode = successCode;
+        this.getRatingByName(this.rating.nameOfRat);
+
       }, (errorCode) => this.statusCode = errorCode);
-    this.getRatingByName(this.rating.nameOfRat);
   }
 
   getRating(id) {
@@ -204,6 +206,9 @@ export class RatingPageComponent implements OnInit, OnDestroy {
         this.requestProcessing = false;
         this.isRatinActiveded = rating.active;
         this.rating = rating;
+
+        console.log('get rating');
+        console.log(rating);
         this.title = rating.description;
       }, (errorCode) => this.statusCode = errorCode);
 
